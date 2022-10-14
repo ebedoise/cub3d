@@ -4,8 +4,10 @@ NAME		= cub3D
 FILES		= cubddd.c
 F_CHECKS	= input_checks.c file_checks.c map_checks.c
 FILES		+= $(addprefix checks/, $(F_CHECKS))
-F_UTILS		= utils.c error.c
+F_UTILS		= utils.c error.c split.c
 FILES		+= $(addprefix utils/, $(F_UTILS))
+F_GNL		= get_next_line.c get_next_line_utils.c
+FILES		+= $(addprefix gnl/, $(F_GNL))
 
 # Colors
 _END		= \033[0m
@@ -21,13 +23,13 @@ BUILD		= Building
 REMOVE		= Removing
 LIBX		= Building lib
 FINISH		= \n\n\
-			.............................................\n\
+			. . . . . . . . . . . . . . . . . . . . . . .\n\
 			.         ______      __   _____ ____       .\n\
 			.        / ____/_  __/ /_ |__  // __ \      .\n\
 			.       / /   / / / / __ \ /_ </ / / /      .\n\
 			.      / /___/ /_/ / /_/ /__/ / /_/ /       .\n\
 			.      \____/\__,_/_.___/____/_____/        .\n\
-			.............................................\n\n\n\
+			. . . . . . . . . . . . . . . . . . . . . . .\n\n\n\
 MSG_COMP	= ${_COMP}${COMP}:	${_END}
 MSG_BUILD	= ${_BUILD}${BUILD}:	${_END}
 MSG_RMV		= ${_REMOVE}${REMOVE}:	${_END}
