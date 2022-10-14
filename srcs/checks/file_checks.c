@@ -4,7 +4,7 @@ char	*init_file(char *str)
 {
 	char	*buf;
 	char	*tmp;
-	int	fd;
+	int		fd;
 
 	buf = malloc(sizeof(char));
 	if (!buf)
@@ -58,7 +58,7 @@ int	__start_map(char *str)
 		if (first_line_map(str + i))
 		{
 			save = i;
-			break;
+			break ;
 		}
 		while (str[i] && str[i] != '\n')
 			i++;
@@ -68,24 +68,10 @@ int	__start_map(char *str)
 	return (save);
 }
 
-int	__data_checks(char *str, t_game *g)
-{
-	(void)str;
-	(void)g;
-
-	//bzero
-	//split str \n
-	//NO SO WE EA F C assign
-	//if one is == NULL err
-	//check open NO SO WE EA
-	//check valid colors F C
-	return (0);
-}
-
 int	__file_checks(char *str, t_game *g)
 {
 	char	*buf;
-	int	start_map;
+	int		start_map;
 
 	buf = init_file(str);
 	if (!buf)
@@ -93,20 +79,8 @@ int	__file_checks(char *str, t_game *g)
 	start_map = __start_map(buf);
 	g->map = __strdup(buf + start_map);
 	buf = __strndup(buf, start_map);
-	printf("%s", buf);
+	//printf("%s", buf);
 	if (__data_checks(buf, g))
-	{
-		free(buf);
-		return (1);//puterr
-	}
-	free(buf);
+		return (1);//puterr exemple map ?
 	return (0);
 }
-
-//while exist
-//check map
-//1 next at least 1 0/1/start
-//0 next to 0/1/start only
-//N,S,E,W next to 0/1 only
-//only 1 start (N, S, E, W)
-//no empty lines

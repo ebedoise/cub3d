@@ -45,16 +45,24 @@ int	main(int ac, char **av, char **env)
 	{
 		if (__file_checks(av[1], &g))
 			return (1);
-/*		printf("no = %s\n", g.no);
+		printf("---------------------------------\n");
+		printf("f.r = %d | f.g = %d | f.b = %d\n", g.f.r, g.f.g, g.f.b);
+		printf("c.r = %d | c.g = %d | c.b = %d\n", g.c.r, g.c.g, g.c.b);
+		printf("no = %s\n", g.no);
 		printf("so = %s\n", g.so);
 		printf("we = %s\n", g.we);
 		printf("ea = %s\n", g.ea);
-		printf("f = %s\n", g.f);
-		printf("c = %s\n", g.c);
-*/		//if (__play(av[1], g))
+		//if (__play(av[1], g))
 		//	return (1);
-		printf("MAP\n---------------------------------\n%s", g.map);
+		printf("---------------------------------\n");
+		printf("           -- MAP --\n");
+		printf("---------------------------------\n");
+		printf("%s", g.map);
 		free(g.map);
+		free(g.no);
+		free(g.so);
+		free(g.we);
+		free(g.ea);
 	}
 	return (0);
 }
