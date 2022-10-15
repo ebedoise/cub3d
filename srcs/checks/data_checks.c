@@ -73,10 +73,6 @@ int	__data_checks(char *str, t_game *g)
 	if (!strs)
 		return (__puterr("Malloc err"));
 	free(str);
-	//
-	for(int j = 0; strs[j]; j++)
-		printf("%s\n", strs[j]);
-	//
 	while (strs[i])
 	{
 		if (__empty_line(strs[i]) && __data_handler(strs[i], g))

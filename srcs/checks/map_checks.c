@@ -1,5 +1,16 @@
 #include "cub.h"
 
+int	__map_checks(t_game *g)
+{
+	int	i;
+
+	i = 0;
+	while (g->map[i])
+	{
+	}
+}
+
+//split map??
 //while exist
 //check map
 //1 next at least 1 0/1/start

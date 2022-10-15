@@ -79,8 +79,9 @@ int	__file_checks(char *str, t_game *g)
 	start_map = __start_map(buf);
 	g->map = __strdup(buf + start_map);
 	buf = __strndup(buf, start_map);
-	//printf("%s", buf);
 	if (__data_checks(buf, g))
 		return (1);//puterr exemple map ?
+	if (__map_checks(g))
+		return (__puterr("Wrong map format"));
 	return (0);
 }

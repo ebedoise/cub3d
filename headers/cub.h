@@ -42,6 +42,7 @@ typedef struct s_game
 int	__input(int ac, char **av, char **env);
 int	__file_checks(char *str, t_game *g);
 int	__data_checks(char *str, t_game *g);
+int	__map_checks(t_game *g);
 int	__cardinals(char *str, t_game *g);
 int	__colors(char *str, t_game *g, char c);
 
