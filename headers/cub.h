@@ -25,7 +25,7 @@ typedef struct s_vars
 
 typedef struct s_game
 {
-	char	*map;
+	char	**map;
 	char	*no;
 	char	*so;
 	char	*we;

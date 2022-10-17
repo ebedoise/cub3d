@@ -71,17 +71,23 @@ int	__start_map(char *str)
 int	__file_checks(char *str, t_game *g)
 {
 	char	*buf;
+	char	*map_tmp;
 	int		start_map;
 
 	buf = init_file(str);
 	if (!buf)
 		return (1);
 	start_map = __start_map(buf);
-	g->map = __strdup(buf + start_map);
+	//check empty lines map ?
+	map_tmp = __strdup(buf + start_map);
+	g->map = __split(map_tmp, "\n");
+	free(map_tmp);
+	if (!g->map)
+		return (1);
 	buf = __strndup(buf, start_map);
 	if (__data_checks(buf, g))
 		return (1);//puterr exemple map ?
-	if (__map_checks(g))
+/*	if (__map_checks(g))
 		return (__puterr("Wrong map format"));
-	return (0);
+*/	return (0);
 }
