@@ -53,6 +53,9 @@ int	main(int ac, char **av, char **env)
 		printf("so = %s\n", g.so);
 		printf("we = %s\n", g.we);
 		printf("ea = %s\n", g.ea);
+		printf("start_x = %f\n", g.start_x);
+		printf("start_y = %f\n", g.start_y);
+		printf("start_rad = %f\n", g.start_rad);
 		printf("---------------------------------\n");
 		printf("           -- MAP --\n");
 		printf("---------------------------------\n");

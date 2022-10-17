@@ -32,21 +32,34 @@ int	__map_checks(t_game *g)
 		j = 0;
 		while (g->map[i][j])
 		{
-			if ((g->map[i][j] == '0' || g->map[i][j] == 'N'
+			if (__valid(g->map[i][j]) && g->map[i][j] != ' ')
+				return (__puterr("Bad character in map"));//puterr bad character in map
+			else if ((g->map[i][j] == '0' || g->map[i][j] == 'N'
 				|| g->map[i][j] == 'S' || g->map[i][j] == 'W'
 				|| g->map[i][j] == 'E') && __zero_checks(g, i, j))
-				return (1);//puterr invalid map
+				return (__puterr("Map unclosed"));//puterr invalid map
+			else if ((g->map[i][j] == 'N' || g->map[i][j] == 'S'
+				|| g->map[i][j] == 'W' || g->map[i][j] == 'E'))
+			{
+				if (pos)
+					return (__puterr("Multiple starting position"));
+				pos++;
+				g->start_x = j;
+				g->start_y = i;
+				if (g->map[i][j] == 'N')
+					g->start_rad = PI / 2;
+				else if (g->map[i][j] == 'E')
+					g->start_rad = 2 * PI;
+				else if (g->map[i][j] == 'S')
+					g->start_rad = 3 * PI / 2;
+				else if (g->map[i][j] == 'W')
+					g->start_rad = PI;
+			}
 			j++;
 		}
 		i++;
 	}
+	if (!pos)
+		return (__puterr("No starting position"));
 	return (0);
 }
-
-//while exist
-//check map
-//1 next at least 1 0/1/start
-//0 next to 0/1/start only
-//N,S,E,W next to 0/1 only
-//only 1 start (N, S, E, W)
-//no empty lines
