@@ -10,11 +10,11 @@ V-  Red Cross cf. ESC
 
 PARSING:
 V- check extension .cub -> strcmp(name + strlen(name) - 4, ".cub")
-- 6 possible characters in map: 1, 0, N, S, E, W
-- map closed/surrounded by walls(1)
+V- 6 possible characters in map: 1, 0, N, S, E, W
+V- map closed/surrounded by walls(1)
 - except in map, can be empty lines and/or spaces
-- map last, else no order
-- each elem first info is type ex:
+V- map last, else no order
+V- each elem first info is type ex:
 	- NO ./path_to_the_north_texture
 	- SO ./path_to_the_south_texture
 	- WE ./path_to_the_west_texture
