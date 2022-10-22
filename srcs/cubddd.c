@@ -1,14 +1,6 @@
 #include "cub.h"
-//////////////////////////////////////////////////////////////////////
-typedef struct	s_d {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_d;
 
-void	my_mlx_pixel_put(t_d *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char	*dst;
 
@@ -16,7 +8,6 @@ void	my_mlx_pixel_put(t_d *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-////////////////////////////////////////////////////////////////////
 void	__destroy(t_game *g)
 {
 	mlx_destroy_window(g->vars.mlx, g->vars.win);
@@ -32,34 +23,9 @@ int	__close_window(t_game *g)
 	return (0);
 }
 
-int	__key_hook(int keycode, t_game *g)
+void	__print_frame(t_game *g)
 {
-	if (keycode == 119)
-		g->pos_y -= 1;
-	if (keycode == 97)
-		g->pos_x -= 1;
-	if (keycode == 115)
-		g->pos_y += 1;
-	if (keycode == 100)
-		g->pos_x += 1;
-	if (keycode == 65307)
-		__destroy(g);
-	return (0);
-}
-
-int	__play(t_game g)
-{
-	t_d	img;
 	int	i;
-
-	g.vars.mlx = mlx_init();
-	if (!g.vars.mlx)
-		return (1);
-	g.vars.win = mlx_new_window(g.vars.mlx, windowW, windowH, "cub3D");
-	img.img = mlx_new_image(g.vars.mlx, 1280, 720);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel\
-		, &img.line_length, &img.endian);
-
 	int	x;
 	int	mapX;
 	int	mapY;
@@ -79,36 +45,50 @@ int	__play(t_game g)
 	double	deltaDistY;
 	double	perpWallDist;
 
+	int	j;
+	int	h;
+
+	j = 0;
+	while (j < 1280)
+	{
+		h = 0;
+		while (h < 720)
+		{
+			my_mlx_pixel_put(&g->img, j, h, 0x00000000);
+			h++;
+		}
+		j++;
+	}
 	x = 0;
 	while (x < windowW)
 	{
 		cameraX = 2 * x / (double)windowW - 1;
-		rayDirX = g.dir_x + g.plane_x * cameraX;
-		rayDirY = g.dir_y + g.plane_y * cameraX;
-		mapX = (int)g.pos_x;
-		mapY = (int)g.pos_y;
+		rayDirX = g->dir_x + g->plane_x * cameraX;
+		rayDirY = g->dir_y + g->plane_y * cameraX;
+		mapX = (int)g->pos_x;
+		mapY = (int)g->pos_y;
 		deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
 		deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
 		hit = 0;
 		if (rayDirX < 0)
 		{
 			stepX = -1;
-			sideDistX = (g.pos_x - mapX) * deltaDistX;
+			sideDistX = (g->pos_x - mapX) * deltaDistX;
 		}
 		else
 		{
 			stepX = 1;
-			sideDistX = (mapX + 1.0 - g.pos_x) * deltaDistX;
+			sideDistX = (mapX + 1.0 - g->pos_x) * deltaDistX;
 		}
 		if (rayDirY < 0)
 		{
 			stepY = -1;
-			sideDistY = (g.pos_y - mapY) * deltaDistY;
+			sideDistY = (g->pos_y - mapY) * deltaDistY;
 		}
 		else
 		{
 			stepY = 1;
-			sideDistY = (mapY + 1.0 - g.pos_y) * deltaDistY;
+			sideDistY = (mapY + 1.0 - g->pos_y) * deltaDistY;
 		}
 		while (hit == 0)
 		{
@@ -124,7 +104,7 @@ int	__play(t_game g)
 				mapY += stepY;
 				side = 1;
 			}
-			if (g.map[mapX][mapY]  == '1')
+			if (g->map[mapX][mapY]  == '1')
 				hit = 1;
 		}
 		if (side == 0)
@@ -141,12 +121,90 @@ int	__play(t_game g)
 		i = 0;
 		while (drawStart + i < drawEnd)
 		{
-			my_mlx_pixel_put(&img, x, drawStart + i, 0x00FFFFFF);
+			my_mlx_pixel_put(&g->img, x, drawStart + i, 0x00FFFFFF);
 			i++;
 		}
 		x++;
 	}
-	mlx_put_image_to_window(g.vars.mlx, g.vars.win, img.img, 0, 0);
+	mlx_put_image_to_window(g->vars.mlx, g->vars.win, g->img.img, 0, 0);
+}
+
+int	__key_hook(int keycode, t_game *g)
+{
+	double	save;
+	double	oldDirX;
+	double	oldPlaneX;
+
+	if (keycode == 119)//W
+	{
+		save = g->pos_x + g->dir_x * 0.5;
+		if (g->map[(int)save][(int)g->pos_y] == '0')
+			g->pos_x += g->dir_x * 0.5;
+		save = g->pos_y + g->dir_y * 0.5;
+		if (g->map[(int)g->pos_x][(int)save] == '0')
+			g->pos_y += g->dir_y * 0.5;
+	}
+	if (keycode == 97)//A
+	{
+		save = g->pos_x - g->dir_x * 0.5;
+		if (g->map[(int)save][(int)g->pos_y] == '0')
+			g->pos_x -= g->dir_x * 0.5;
+		save = g->pos_y + g->dir_y * 0.5;
+		if (g->map[(int)g->pos_x][(int)save] == '0')
+			g->pos_y += g->dir_y * 0.5;
+	}
+	if (keycode == 115)//S
+	{
+		save = g->pos_x - g->dir_x * 0.5;
+		if (g->map[(int)save][(int)g->pos_y] == '0')
+			g->pos_x -= g->dir_x * 0.5;
+		save = g->pos_y - g->dir_y * 0.5;
+		if (g->map[(int)g->pos_x][(int)save] == '0')
+			g->pos_y -= g->dir_y * 0.5;
+	}
+	if (keycode == 100)//D
+	{
+		save = g->pos_x + g->dir_x * 0.5;
+		if (g->map[(int)save][(int)g->pos_y] == '0')
+			g->pos_x += g->dir_x * 0.5;
+		save = g->pos_y - g->dir_y * 0.5;
+		if (g->map[(int)g->pos_x][(int)save] == '0')
+			g->pos_y -= g->dir_y * 0.5;
+	}
+	if (keycode == 65361)//<-
+	{
+		oldDirX = g->dir_x;
+		g->dir_x = g->dir_x * cos(-0.1) - g->dir_y * sin(-0.1);
+		g->dir_y = oldDirX * sin(-0.1) + g->dir_y * cos(-0.1);
+		oldPlaneX = g->plane_x;
+		g->plane_x = g->plane_x * cos(-0.1) - g->plane_y * sin(-0.1);
+		g->plane_y = oldPlaneX * sin(-0.1) + g->plane_y * cos(-0.1);
+	}
+	if (keycode == 65363)//->
+	{
+		oldDirX = g->dir_x;
+		g->dir_x = g->dir_x * cos(0.1) - g->dir_y * sin(0.1);
+		g->dir_y = oldDirX * sin(0.1) + g->dir_y * cos(0.1);
+		oldPlaneX = g->plane_x;
+		g->plane_x = g->plane_x * cos(0.1) - g->plane_y * sin(0.1);
+		g->plane_y = oldPlaneX * sin(0.1) + g->plane_y * cos(0.1);
+	}
+	if (keycode == 65307)
+		__destroy(g);
+	__print_frame(g);
+	return (0);
+}
+
+int	__play(t_game g)
+{
+	g.vars.mlx = mlx_init();
+	if (!g.vars.mlx)
+		return (1);
+	g.vars.win = mlx_new_window(g.vars.mlx, windowW, windowH, "cub3D");
+	g.img.img = mlx_new_image(g.vars.mlx, 1280, 720);
+	g.img.addr = mlx_get_data_addr(g.img.img, &g.img.bits_per_pixel\
+		, &g.img.line_length, &g.img.endian);
+	__print_frame(&g);
 	mlx_hook(g.vars.win, 2, 1L << 0, __key_hook, &g);
 	mlx_hook(g.vars.win, 17, 0, __close_window, &g);
 	mlx_loop(g.vars.mlx);

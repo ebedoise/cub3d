@@ -27,6 +27,15 @@ typedef struct s_vars
 	void	*win;
 }		t_vars;
 
+typedef struct	s_img
+{
+	void    *img;
+	char	*addr;
+	int	bits_per_pixel;
+	int	line_length;
+	int	endian;
+}		t_img;
+
 typedef struct s_game
 {
 	char	**map;
@@ -45,6 +54,7 @@ typedef struct s_game
 	t_rgb	f;
 	t_rgb	c;
 	t_vars	vars;
+	t_img	img;
 }		t_game;
 
 //checks
