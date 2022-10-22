@@ -45,6 +45,7 @@ void	__print_frame(t_game *g)
 	double	deltaDistY;
 	double	perpWallDist;
 
+	////////erase old frame ??
 	int	j;
 	int	h;
 
@@ -118,10 +119,16 @@ void	__print_frame(t_game *g)
 		drawEnd = lineHeight / 2 + windowH / 2;
 		if (drawEnd >= windowH)
 			drawEnd = windowH - 1;
+		int	color;
+
+		if (side)
+			color = 0x00FF0000;
+		else
+			color = 0x000000FF;
 		i = 0;
 		while (drawStart + i < drawEnd)
 		{
-			my_mlx_pixel_put(&g->img, x, drawStart + i, 0x00FFFFFF);
+			my_mlx_pixel_put(&g->img, x, drawStart + i, color);
 			i++;
 		}
 		x++;
