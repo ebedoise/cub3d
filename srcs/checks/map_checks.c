@@ -48,23 +48,23 @@ int	__map_checks(t_game *g)
 				g->pos_y = j;
 				if (g->map[i][j] == 'N')
 				{
-					g->dir_x = 0;
-					g->dir_y = 1;
-				}
-				else if (g->map[i][j] == 'E')
-				{
-					g->dir_x = 1;
+					g->dir_x = -1;
 					g->dir_y = 0;
 				}
-				else if (g->map[i][j] == 'S')
+				else if (g->map[i][j] == 'E')
 				{
 					g->dir_x = 0;
 					g->dir_y = -1;
 				}
+				else if (g->map[i][j] == 'S')
+				{
+					g->dir_x = 1;
+					g->dir_y = 0;
+				}
 				else if (g->map[i][j] == 'W')
 				{
-					g->dir_x = -1;
-					g->dir_y = 0;
+					g->dir_x = 0;
+					g->dir_y = 1;
 				}
 			}
 			j++;

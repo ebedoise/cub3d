@@ -16,18 +16,6 @@ void	my_mlx_pixel_put(t_d *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	__print_vertical(t_game g, int x, int start, int end, int color)
-{
-	t_d	img;
-
-	(void)end;
-	img.img = mlx_new_image(g.vars.mlx, 1280, 720);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel\
-		, &img.line_length, &img.endian);
-	my_mlx_pixel_put(&img, start, x, color);
-	mlx_put_image_to_window(g.vars.mlx, g.vars.win, img.img, 0, 0);
-	return (0);
-}
 ////////////////////////////////////////////////////////////////////
 void	__destroy(t_game *g)
 {
@@ -61,10 +49,16 @@ int	__key_hook(int keycode, t_game *g)
 
 int	__play(t_game g)
 {
+	t_d	img;
+	int	i;
+
 	g.vars.mlx = mlx_init();
 	if (!g.vars.mlx)
 		return (1);
 	g.vars.win = mlx_new_window(g.vars.mlx, windowW, windowH, "cub3D");
+	img.img = mlx_new_image(g.vars.mlx, 1280, 720);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel\
+		, &img.line_length, &img.endian);
 
 	int	x;
 	int	mapX;
@@ -144,10 +138,15 @@ int	__play(t_game g)
 		drawEnd = lineHeight / 2 + windowH / 2;
 		if (drawEnd >= windowH)
 			drawEnd = windowH - 1;
-		__print_vertical(g, x, drawStart, drawEnd, 0x00FFFFFF);
+		i = 0;
+		while (drawStart + i < drawEnd)
+		{
+			my_mlx_pixel_put(&img, x, drawStart + i, 0x00FFFFFF);
+			i++;
+		}
 		x++;
 	}
-
+	mlx_put_image_to_window(g.vars.mlx, g.vars.win, img.img, 0, 0);
 	mlx_hook(g.vars.win, 2, 1L << 0, __key_hook, &g);
 	mlx_hook(g.vars.win, 17, 0, __close_window, &g);
 	mlx_loop(g.vars.mlx);
