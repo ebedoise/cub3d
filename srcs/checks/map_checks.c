@@ -44,16 +44,28 @@ int	__map_checks(t_game *g)
 				if (pos)
 					return (__puterr("Multiple starting position"));
 				pos++;
-				g->start_x = j;
-				g->start_y = i;
+				g->pos_x = i;
+				g->pos_y = j;
 				if (g->map[i][j] == 'N')
-					g->start_rad = PI / 2;
+				{
+					g->dir_x = 0;
+					g->dir_y = 1;
+				}
 				else if (g->map[i][j] == 'E')
-					g->start_rad = 2 * PI;
+				{
+					g->dir_x = 1;
+					g->dir_y = 0;
+				}
 				else if (g->map[i][j] == 'S')
-					g->start_rad = 3 * PI / 2;
+				{
+					g->dir_x = 0;
+					g->dir_y = -1;
+				}
 				else if (g->map[i][j] == 'W')
-					g->start_rad = PI;
+				{
+					g->dir_x = -1;
+					g->dir_y = 0;
+				}
 			}
 			j++;
 		}

@@ -11,6 +11,8 @@
 # include "get_next_line.h"
 
 # define PI 3.1415926
+# define windowH 720
+# define windowW 1280
 
 typedef struct s_rgb
 {
@@ -32,9 +34,14 @@ typedef struct s_game
 	char	*so;
 	char	*we;
 	char	*ea;
-	double	start_rad;
-	double	start_x;
-	double	start_y;
+	double	dir_x;
+	double	dir_y;
+	double	pos_x;
+	double	pos_y;
+	double	plane_x;
+	double	plane_y;
+	double	time;
+	double	old_time;
 	t_rgb	f;
 	t_rgb	c;
 	t_vars	vars;
