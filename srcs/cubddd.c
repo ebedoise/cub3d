@@ -23,6 +23,94 @@ int	__close_window(t_game *g)
 	return (0);
 }
 
+void	__print_block(t_img img, int i, int j, int color)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < 8)
+	{
+		y = 0;
+		while (y < 8)
+		{
+			my_mlx_pixel_put(&img, j + x, i + y, color);
+			y++;
+		}
+		x++;
+	}
+}
+
+void	__print_block_v2(t_img img, int i, int j, int color)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < 8)
+	{
+		y = 0;
+		while (y < 8)
+		{
+			my_mlx_pixel_put(&img, j + x + windowW / 2, i + y, color);
+			y++;
+		}
+		x++;
+	}
+}
+
+void	__minimap(t_game *g)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (g->map[i])
+	{
+		j = 0;
+		while (g->map[i][j])
+		{
+			if (g->map[i][j] == '1')
+				__print_block(g->img, i * 8, j * 8, 0x00FFFFFF);
+			else if (g->map[i][j] != ' ')
+				__print_block(g->img, i * 8, j * 8, 0x00000000);
+			j++;
+		}
+		i++;
+	}
+	__print_block(g->img, g->pos_x * 8, g->pos_y * 8, 0x00FF00FF);
+}
+
+void	__minimap_v2(t_game *g)
+{
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+
+	i = 0;
+	x = g->pos_x - 8;
+	while (i < 17)
+	{
+		j = 0;
+		y = g->pos_y - 8;
+		while (j < 17)
+		{
+			if (i == 8 && j == 8)
+				__print_block_v2(g->img, i * 8, j * 8, 0x00FF00FF);
+			else if (x >= 0 && y >= 0 && x < g->map_max && y < __strlen(g->map[x])
+				&& g->map[x][y] && g->map[x][y] == '1')
+				__print_block_v2(g->img, i * 8, j * 8, 0x00FFFFFF);
+			else
+				__print_block_v2(g->img, i * 8, j * 8, 0x00000000);
+			j++;
+			y++;
+		}
+		i++;
+		x++;
+	}
+}
+
 void	__print_frame(t_game *g)
 {
 	int	i;
@@ -65,8 +153,8 @@ void	__print_frame(t_game *g)
 	while (x < windowW)
 	{
 		cameraX = 2 * x / (double)windowW - 1;
-		rayDirX = g->dir_x + g->plane_x * cameraX;
-		rayDirY = g->dir_y + g->plane_y * cameraX;
+		rayDirX = g->dir_x - g->plane_x * cameraX;
+		rayDirY = g->dir_y - g->plane_y * cameraX;
 		mapX = (int)g->pos_x;
 		mapY = (int)g->pos_y;
 		deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
@@ -143,6 +231,8 @@ void	__print_frame(t_game *g)
 		}
 		x++;
 	}
+	__minimap(g);
+	__minimap_v2(g);
 	mlx_put_image_to_window(g->vars.mlx, g->vars.win, g->img.img, 0, 0);
 }
 
@@ -152,6 +242,12 @@ int	__key_hook(int keycode, t_game *g)
 	double	oldDirX;
 	double	oldPlaneX;
 
+	//not workin, time problem imo	
+/*	g->old_time = g->time;
+	g->time = g->timer;
+	g->frame_time = (g->time - g->old_time) / 1000.0;
+	g->move_speed = g->frame_time * 5.0;
+	g->rotate_speed = g->frame_time * 3.0; */
 	if (keycode == 119)//W
 	{
 		save = g->pos_x + g->dir_x * 0.5;
@@ -212,6 +308,12 @@ int	__key_hook(int keycode, t_game *g)
 	return (0);
 }
 
+int	__loop(t_game *g)
+{
+	g->timer++;
+	return (0);
+}
+
 int	__play(t_game g)
 {
 	g.vars.mlx = mlx_init();
@@ -224,6 +326,7 @@ int	__play(t_game g)
 	__print_frame(&g);
 	mlx_hook(g.vars.win, 2, 1L << 0, __key_hook, &g);
 	mlx_hook(g.vars.win, 17, 0, __close_window, &g);
+	mlx_loop_hook(g.vars.mlx, __loop, &g);
 	mlx_loop(g.vars.mlx);
 	return (0);
 }

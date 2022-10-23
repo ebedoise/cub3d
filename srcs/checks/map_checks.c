@@ -79,6 +79,7 @@ int	__map_checks(t_game *g)
 		}
 		i++;
 	}
+	g->map_max = i;
 	if (!pos)
 		return (__puterr("No starting position"));
 	return (0);
