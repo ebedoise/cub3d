@@ -44,27 +44,35 @@ int	__map_checks(t_game *g)
 				if (pos)
 					return (__puterr("Multiple starting position"));
 				pos++;
-				g->pos_x = i;
-				g->pos_y = j;
+				g->pos_x = i + 0.5;
+				g->pos_y = j + 0.5;
 				if (g->map[i][j] == 'N')
 				{
 					g->dir_x = -1;
 					g->dir_y = 0;
+					g->plane_x = 0;
+					g->plane_y = 0.66;
 				}
 				else if (g->map[i][j] == 'E')
 				{
 					g->dir_x = 0;
-					g->dir_y = -1;
+					g->dir_y = 1;
+					g->plane_x = 0.66;
+					g->plane_y = 0;
 				}
 				else if (g->map[i][j] == 'S')
 				{
 					g->dir_x = 1;
 					g->dir_y = 0;
+					g->plane_x = 0;
+					g->plane_y = 0.66;
 				}
 				else if (g->map[i][j] == 'W')
 				{
 					g->dir_x = 0;
-					g->dir_y = 1;
+					g->dir_y = -1;
+					g->plane_x = 0.66;
+					g->plane_y = 0;
 				}
 			}
 			j++;

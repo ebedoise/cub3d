@@ -36,6 +36,7 @@ void	__print_frame(t_game *g)
 	int	lineHeight;
 	int	drawStart;
 	int	drawEnd;
+	int	color;
 	double	cameraX;
 	double	rayDirX;
 	double	rayDirY;
@@ -119,17 +120,26 @@ void	__print_frame(t_game *g)
 		drawEnd = lineHeight / 2 + windowH / 2;
 		if (drawEnd >= windowH)
 			drawEnd = windowH - 1;
-		int	color;
-
+		i = 0;
+		while (i < drawStart)
+		{
+			my_mlx_pixel_put(&g->img, x, i, 0x00FF00FF);
+			i++;
+		}
+		i = 0;
 		if (side)
 			color = 0x00FF0000;
 		else
 			color = 0x000000FF;
-		i = 0;
 		while (drawStart + i < drawEnd)
 		{
 			my_mlx_pixel_put(&g->img, x, drawStart + i, color);
 			i++;
+		}
+		while (drawEnd < windowH)
+		{
+			my_mlx_pixel_put(&g->img, x, drawEnd, 0x00FFFF);
+			drawEnd++;
 		}
 		x++;
 	}
@@ -145,37 +155,37 @@ int	__key_hook(int keycode, t_game *g)
 	if (keycode == 119)//W
 	{
 		save = g->pos_x + g->dir_x * 0.5;
-		if (g->map[(int)save][(int)g->pos_y] == '0')
+		if (g->map[(int)save][(int)g->pos_y] != '1')
 			g->pos_x += g->dir_x * 0.5;
 		save = g->pos_y + g->dir_y * 0.5;
-		if (g->map[(int)g->pos_x][(int)save] == '0')
+		if (g->map[(int)g->pos_x][(int)save] != '1')
 			g->pos_y += g->dir_y * 0.5;
 	}
 	if (keycode == 97)//A
 	{
 		save = g->pos_x - g->dir_x * 0.5;
-		if (g->map[(int)save][(int)g->pos_y] == '0')
+		if (g->map[(int)save][(int)g->pos_y] != '1')
 			g->pos_x -= g->dir_x * 0.5;
 		save = g->pos_y + g->dir_y * 0.5;
-		if (g->map[(int)g->pos_x][(int)save] == '0')
+		if (g->map[(int)g->pos_x][(int)save] != '1')
 			g->pos_y += g->dir_y * 0.5;
 	}
 	if (keycode == 115)//S
 	{
 		save = g->pos_x - g->dir_x * 0.5;
-		if (g->map[(int)save][(int)g->pos_y] == '0')
+		if (g->map[(int)save][(int)g->pos_y] != '1')
 			g->pos_x -= g->dir_x * 0.5;
 		save = g->pos_y - g->dir_y * 0.5;
-		if (g->map[(int)g->pos_x][(int)save] == '0')
+		if (g->map[(int)g->pos_x][(int)save] != '1')
 			g->pos_y -= g->dir_y * 0.5;
 	}
 	if (keycode == 100)//D
 	{
 		save = g->pos_x + g->dir_x * 0.5;
-		if (g->map[(int)save][(int)g->pos_y] == '0')
+		if (g->map[(int)save][(int)g->pos_y] != '1')
 			g->pos_x += g->dir_x * 0.5;
 		save = g->pos_y - g->dir_y * 0.5;
-		if (g->map[(int)g->pos_x][(int)save] == '0')
+		if (g->map[(int)g->pos_x][(int)save] != '1')
 			g->pos_y -= g->dir_y * 0.5;
 	}
 	if (keycode == 65361)//<-
@@ -228,8 +238,6 @@ int	main(int ac, char **av, char **env)
 	{
 		if (__file_checks(av[1], &g))
 			return (1);
-		g.plane_x = 0;
-		g.plane_y = 0.66;
 		g.time = 0;
 		g.old_time = 0;
 /*		printf("           -- DATA --\n");

@@ -43,6 +43,7 @@ typedef struct s_game
 	char	*so;
 	char	*we;
 	char	*ea;
+	int	timer;
 	double	dir_x;
 	double	dir_y;
 	double	pos_x;
