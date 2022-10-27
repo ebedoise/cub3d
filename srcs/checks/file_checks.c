@@ -8,17 +8,17 @@ char	*init_file(char *str)
 
 	buf = malloc(sizeof(char));
 	if (!buf)
-		return (NULL);//puterr
+		return (__puterr_char("Malloc issue"));
 	buf[0] = '\0';
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-		return (NULL);//puterr
+		return (__puterr_char("Malloc issue"));
 	tmp = get_next_line(fd);
 	while (tmp)
 	{
 		buf = __strjoin(buf, tmp);
 		if (!buf)
-			return (NULL);//puterr
+			return (__puterr_char("Malloc issue"));
 		free(tmp);
 		tmp = get_next_line(fd);
 	}

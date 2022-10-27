@@ -4,10 +4,12 @@ NAME		= cub3D
 FILES		= cubddd.c
 F_CHECKS	= input_checks.c file_checks.c map_checks.c data_checks.c cardinal_checks.c
 FILES		+= $(addprefix checks/, $(F_CHECKS))
-F_UTILS		= utils.c error.c split.c clean.c
+F_UTILS		= utils.c utils2.c error.c split.c clean.c
 FILES		+= $(addprefix utils/, $(F_UTILS))
 F_GNL		= get_next_line.c get_next_line_utils.c
 FILES		+= $(addprefix gnl/, $(F_GNL))
+F_GAME		= keys.c
+FILES		+= $(addprefix game/, $(F_GAME))
 
 # Colors
 _END		= \033[0m

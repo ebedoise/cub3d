@@ -236,84 +236,6 @@ void	__print_frame(t_game *g)
 	mlx_put_image_to_window(g->vars.mlx, g->vars.win, g->img.img, 0, 0);
 }
 
-int	__key_hook(int keycode, t_game *g)
-{
-	double	save;
-	double	oldDirX;
-	double	oldPlaneX;
-
-	//not workin, time problem imo	
-/*	g->old_time = g->time;
-	g->time = g->timer;
-	g->frame_time = (g->time - g->old_time) / 1000.0;
-	g->move_speed = g->frame_time * 5.0;
-	g->rotate_speed = g->frame_time * 3.0; */
-	if (keycode == 119)//W
-	{
-		save = g->pos_x + g->dir_x * 0.5;
-		if (g->map[(int)save][(int)g->pos_y] != '1')
-			g->pos_x += g->dir_x * 0.5;
-		save = g->pos_y + g->dir_y * 0.5;
-		if (g->map[(int)g->pos_x][(int)save] != '1')
-			g->pos_y += g->dir_y * 0.5;
-	}
-	if (keycode == 97)//A
-	{
-		save = g->pos_x - g->dir_x * 0.5;
-		if (g->map[(int)save][(int)g->pos_y] != '1')
-			g->pos_x -= g->dir_x * 0.5;
-		save = g->pos_y + g->dir_y * 0.5;
-		if (g->map[(int)g->pos_x][(int)save] != '1')
-			g->pos_y += g->dir_y * 0.5;
-	}
-	if (keycode == 115)//S
-	{
-		save = g->pos_x - g->dir_x * 0.5;
-		if (g->map[(int)save][(int)g->pos_y] != '1')
-			g->pos_x -= g->dir_x * 0.5;
-		save = g->pos_y - g->dir_y * 0.5;
-		if (g->map[(int)g->pos_x][(int)save] != '1')
-			g->pos_y -= g->dir_y * 0.5;
-	}
-	if (keycode == 100)//D
-	{
-		save = g->pos_x + g->dir_x * 0.5;
-		if (g->map[(int)save][(int)g->pos_y] != '1')
-			g->pos_x += g->dir_x * 0.5;
-		save = g->pos_y - g->dir_y * 0.5;
-		if (g->map[(int)g->pos_x][(int)save] != '1')
-			g->pos_y -= g->dir_y * 0.5;
-	}
-	if (keycode == 65361)//<-
-	{
-		oldDirX = g->dir_x;
-		g->dir_x = g->dir_x * cos(-0.1) - g->dir_y * sin(-0.1);
-		g->dir_y = oldDirX * sin(-0.1) + g->dir_y * cos(-0.1);
-		oldPlaneX = g->plane_x;
-		g->plane_x = g->plane_x * cos(-0.1) - g->plane_y * sin(-0.1);
-		g->plane_y = oldPlaneX * sin(-0.1) + g->plane_y * cos(-0.1);
-	}
-	if (keycode == 65363)//->
-	{
-		oldDirX = g->dir_x;
-		g->dir_x = g->dir_x * cos(0.1) - g->dir_y * sin(0.1);
-		g->dir_y = oldDirX * sin(0.1) + g->dir_y * cos(0.1);
-		oldPlaneX = g->plane_x;
-		g->plane_x = g->plane_x * cos(0.1) - g->plane_y * sin(0.1);
-		g->plane_y = oldPlaneX * sin(0.1) + g->plane_y * cos(0.1);
-	}
-	if (keycode == 65307)
-		__destroy(g);
-	__print_frame(g);
-	return (0);
-}
-
-int	__loop(t_game *g)
-{
-	g->timer++;
-	return (0);
-}
-
 int	__play(t_game g)
 {
 	g.vars.mlx = mlx_init();
@@ -326,7 +248,6 @@ int	__play(t_game g)
 	__print_frame(&g);
 	mlx_hook(g.vars.win, 2, 1L << 0, __key_hook, &g);
 	mlx_hook(g.vars.win, 17, 0, __close_window, &g);
-	mlx_loop_hook(g.vars.mlx, __loop, &g);
 	mlx_loop(g.vars.mlx);
 	return (0);
 }
@@ -341,8 +262,6 @@ int	main(int ac, char **av, char **env)
 	{
 		if (__file_checks(av[1], &g))
 			return (1);
-		g.time = 0;
-		g.old_time = 0;
 /*		printf("           -- DATA --\n");
 		printf("---------------------------------\n");
 		printf("f.r = %d | f.g = %d | f.b = %d\n", g.f.r, g.f.g, g.f.b);

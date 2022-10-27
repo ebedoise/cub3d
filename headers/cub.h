@@ -44,16 +44,12 @@ typedef struct s_game
 	char	*we;
 	char	*ea;
 	int	map_max;
-	int	timer;
 	double	dir_x;
 	double	dir_y;
 	double	pos_x;
 	double	pos_y;
 	double	plane_x;
 	double	plane_y;
-	double	time;
-	double	old_time;
-	double	frame_time;
 	double	move_speed;
 	double	rot_speed;
 	t_rgb	f;
@@ -62,13 +58,19 @@ typedef struct s_game
 	t_img	img;
 }		t_game;
 
-//checks
+// game
+void	__print_frame(t_game *g);
+void	__destroy(t_game *g);
+
+int	__key_hook(int keycode, t_game *g);
+
+// checks
 int	__input(int ac, char **av, char **env);
 int	__file_checks(char *str, t_game *g);
 int	__data_checks(char *str, t_game *g);
 int	__map_checks(t_game *g);
 int	__cardinals(char *str, t_game *g);
-int	__colors(char *str, t_game *g, char c);
+int	__colors(char *str, t_game *g, char c, int i);
 
 // utils
 void	__free_split(char **strs);
@@ -82,6 +84,7 @@ int	__atoi(char *str, int *i);
 char	*__strjoin(char *s1, char *s2);
 char	*__strdup(char *s1);
 char	*__strndup(char *s1, int n);
+char	*__puterr_char(char *str);
 
 char	**__split(char *str, char *charset);
 

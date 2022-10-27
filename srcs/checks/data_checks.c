@@ -38,12 +38,12 @@ int	__data_handler(char *str, t_game *g)
 	}
 	else if (strncmp(str, "F ", 2) == 0)
 	{
-		if (__colors(str, g, 'f'))
+		if (__colors(str, g, 'f', 2))
 			return (1);
 	}
 	else if (strncmp(str, "C ", 2) == 0)
 	{
-		if (__colors(str, g, 'c'))
+		if (__colors(str, g, 'c', 2))
 			return (1);
 	}
 	else

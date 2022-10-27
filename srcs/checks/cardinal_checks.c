@@ -30,21 +30,16 @@ int	__cardinals(char *str, t_game *g)
 	return (0);
 }
 
-int	__colors(char *str, t_game *g, char c)
+int	__colors(char *str, t_game *g, char c, int i)
 {
-	int	i;
-
-	i = 2;
 	if (c == 'f')
 	{
 		g->f.r = __atoi(str, &i);
-		if (str[i] != ',' || g->f.r < 0 || g->f.r > 255)
+		if (str[i++] != ',' || g->f.r < 0 || g->f.r > 255)
 			return (1);
-		i++;
 		g->f.g = __atoi(str, &i);
-		if (str[i] != ',' || g->f.g < 0 || g->f.g > 255)
+		if (str[i++] != ',' || g->f.g < 0 || g->f.g > 255)
 			return (1);
-		i++;
 		g->f.b = __atoi(str, &i);
 		if (str[i] || g->f.b < 0 || g->f.b > 255)
 			return (1);
@@ -52,13 +47,11 @@ int	__colors(char *str, t_game *g, char c)
 	else if (c == 'c')
 	{
 		g->c.r = __atoi(str, &i);
-		if (str[i] != ',' || g->c.r < 0 || g->c.r > 255)
+		if (str[i++] != ',' || g->c.r < 0 || g->c.r > 255)
 			return (1);
-		i++;
 		g->c.g = __atoi(str, &i);
-		if (str[i] != ',' || g->c.g < 0 || g->c.g > 255)
+		if (str[i++] != ',' || g->c.g < 0 || g->c.g > 255)
 			return (1);
-		i++;
 		g->c.b = __atoi(str, &i);
 		if (str[i] || g->c.b < 0 || g->c.b > 255)
 			return (1);

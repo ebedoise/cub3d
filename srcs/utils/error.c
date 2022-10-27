@@ -12,3 +12,15 @@ int	__puterr(char *str)
 	(void)oui;
 	return (1);
 }
+
+char	*__puterr_char(char *str)
+{
+	int	oui;
+
+	oui = write(2, "Error\n", 6);
+	while (*str)
+		oui = write(2, str++, 1);
+	oui = write(2, "\n", 1);
+	(void)oui;
+	return (NULL);
+}
