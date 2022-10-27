@@ -58,11 +58,18 @@ typedef struct s_game
 	t_img	img;
 }		t_game;
 
+// event
+void	__destroy(t_game *g);
+
+int	__close_window(t_game *g);
+int	__key_hook(int keycode, t_game *g);
+
 // game
 void	__print_frame(t_game *g);
 void	__destroy(t_game *g);
-
-int	__key_hook(int keycode, t_game *g);
+void	__minimap_v2(t_game *g);
+void	__minimap(t_game *g);
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 // checks
 int	__input(int ac, char **av, char **env);

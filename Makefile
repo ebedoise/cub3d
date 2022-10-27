@@ -8,8 +8,10 @@ F_UTILS		= utils.c utils2.c error.c split.c clean.c
 FILES		+= $(addprefix utils/, $(F_UTILS))
 F_GNL		= get_next_line.c get_next_line_utils.c
 FILES		+= $(addprefix gnl/, $(F_GNL))
-F_GAME		= keys.c
+F_GAME		= casting.c minimap.c
 FILES		+= $(addprefix game/, $(F_GAME))
+F_EVENT		= keys.c closing.c
+FILES		+= $(addprefix event/, $(F_EVENT))
 
 # Colors
 _END		= \033[0m
