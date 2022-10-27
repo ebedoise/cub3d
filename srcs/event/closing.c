@@ -14,4 +14,3 @@ int	__close_window(t_game *g)
 	exit(0);
 	return (0);
 }
-

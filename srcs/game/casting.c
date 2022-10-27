@@ -1,29 +1,7 @@
 #include "cub.h"
 
-void	__print_frame(t_game *g)
+void	__erase_old_frame(t_game *g)
 {
-	int	i;
-	int	x;
-	int	mapX;
-	int	mapY;
-	int	stepX;
-	int	stepY;
-	int	hit;
-	int	side;
-	int	lineHeight;
-	int	drawStart;
-	int	drawEnd;
-	int	color;
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist;
-
-	////////erase old frame ??
 	int	j;
 	int	h;
 
@@ -38,89 +16,126 @@ void	__print_frame(t_game *g)
 		}
 		j++;
 	}
+}
+
+void	__init_calc(t_game *g, t_casting *c, int x)
+{
+	c->camera_x = 2 * x / (double)windowW - 1;
+	c->ray_dir_x = g->dir_x - g->plane_x * c->camera_x;
+	c->ray_dir_y = g->dir_y - g->plane_y * c->camera_x;
+	c->map_x = (int)g->pos_x;
+	c->map_y = (int)g->pos_y;
+	c->delta_dist_x = sqrt(1 + (c->ray_dir_y * c->ray_dir_y) \
+		/ (c->ray_dir_x * c->ray_dir_x));
+	c->delta_dist_y = sqrt(1 + (c->ray_dir_x * c->ray_dir_x) \
+		/ (c->ray_dir_y * c->ray_dir_y));
+	c->hit = 0;
+}
+
+void	__dist_inter(t_game *g, t_casting *c)
+{
+	if (c->ray_dir_x < 0)
+	{
+		c->step_x = -1;
+		c->side_dist_x = (g->pos_x - c->map_x) * c->delta_dist_x;
+	}
+	else
+	{
+		c->step_x = 1;
+		c->side_dist_x = (c->map_x + 1.0 - g->pos_x) * c->delta_dist_x;
+	}
+	if (c->ray_dir_y < 0)
+	{
+		c->step_y = -1;
+		c->side_dist_y = (g->pos_y - c->map_y) * c->delta_dist_y;
+	}
+	else
+	{
+		c->step_y = 1;
+		c->side_dist_y = (c->map_y + 1.0 - g->pos_y) * c->delta_dist_y;
+	}
+}
+
+void	__dda(t_game *g, t_casting *c)
+{
+	while (c->hit == 0)
+	{
+		if (c->side_dist_x < c->side_dist_y)
+		{
+			c->side_dist_x += c->delta_dist_x;
+			c->map_x += c->step_x;
+			c->side = 0;
+		}
+		else
+		{
+			c->side_dist_y += c->delta_dist_y;
+			c->map_y += c->step_y;
+			c->side = 1;
+		}
+		if (g->map[c->map_x][c->map_y]  == '1')
+			c->hit = 1;
+	}
+}
+
+void	__prep_print_view(t_casting *c)
+{
+	if (c->side == 0)
+		c->perp_wall_dist = (c->side_dist_x - c->delta_dist_x);
+	else
+		c->perp_wall_dist = (c->side_dist_y - c->delta_dist_y);
+	c->line_height = (int)(windowH / c->perp_wall_dist);
+	c->draw_start = (-1 * c->line_height) / 2 + windowH / 2;
+	if (c->draw_start < 0)
+		c->draw_start = 0;
+	c->draw_end = c->line_height / 2 + windowH / 2;
+	if (c->draw_end >= windowH)
+		c->draw_end = windowH - 1;
+}
+
+void	__print_view(t_game *g, t_casting *c, int x)
+{
+	int	i;
+
+	i = 0;
+	while (i < c->draw_start)
+	{
+		my_mlx_pixel_put(&g->img, x, i, 0x00FF00FF);
+		i++;
+	}
+	i = 0;
+	if (c->side)
+		c->color = 0x00FF0000;
+	else
+		c->color = 0x000000FF;
+	while (c->draw_start + i < c->draw_end)
+	{
+		my_mlx_pixel_put(&g->img, x, c->draw_start + i, c->color);
+		i++;
+	}
+	while (c->draw_end < windowH)
+	{
+		my_mlx_pixel_put(&g->img, x, c->draw_end, 0x00FFFF);
+		c->draw_end++;
+	}
+}
+
+void	__print_frame(t_game *g)
+{
+	int		x;
+	t_casting	c;
+
 	x = 0;
+	__erase_old_frame(g);
 	while (x < windowW)
 	{
-		cameraX = 2 * x / (double)windowW - 1;
-		rayDirX = g->dir_x - g->plane_x * cameraX;
-		rayDirY = g->dir_y - g->plane_y * cameraX;
-		mapX = (int)g->pos_x;
-		mapY = (int)g->pos_y;
-		deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
-		deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
-		hit = 0;
-		if (rayDirX < 0)
-		{
-			stepX = -1;
-			sideDistX = (g->pos_x - mapX) * deltaDistX;
-		}
-		else
-		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - g->pos_x) * deltaDistX;
-		}
-		if (rayDirY < 0)
-		{
-			stepY = -1;
-			sideDistY = (g->pos_y - mapY) * deltaDistY;
-		}
-		else
-		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - g->pos_y) * deltaDistY;
-		}
-		while (hit == 0)
-		{
-			if (sideDistX < sideDistY)
-			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
-			}
-			else
-			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
-			}
-			if (g->map[mapX][mapY]  == '1')
-				hit = 1;
-		}
-		if (side == 0)
-			perpWallDist = (sideDistX - deltaDistX);
-		else
-			perpWallDist = (sideDistY - deltaDistY);
-		lineHeight = (int)(windowH / perpWallDist);
-		drawStart = (-1 * lineHeight) / 2 + windowH / 2;
-		if (drawStart < 0)
-			drawStart = 0;
-		drawEnd = lineHeight / 2 + windowH / 2;
-		if (drawEnd >= windowH)
-			drawEnd = windowH - 1;
-		i = 0;
-		while (i < drawStart)
-		{
-			my_mlx_pixel_put(&g->img, x, i, 0x00FF00FF);
-			i++;
-		}
-		i = 0;
-		if (side)
-			color = 0x00FF0000;
-		else
-			color = 0x000000FF;
-		while (drawStart + i < drawEnd)
-		{
-			my_mlx_pixel_put(&g->img, x, drawStart + i, color);
-			i++;
-		}
-		while (drawEnd < windowH)
-		{
-			my_mlx_pixel_put(&g->img, x, drawEnd, 0x00FFFF);
-			drawEnd++;
-		}
+		__init_calc(g, &c, x);
+		__dist_inter(g, &c);
+		__dda(g, &c);
+		__prep_print_view(&c);
+		__print_view(g, &c, x);
 		x++;
 	}
-	__minimap(g);
-	__minimap_v2(g);
+//	__minimap(g);
+//	__minimap_v2(g);
 	mlx_put_image_to_window(g->vars.mlx, g->vars.win, g->img.img, 0, 0);
 }

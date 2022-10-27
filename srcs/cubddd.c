@@ -5,7 +5,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 int	__play(t_game g)
@@ -15,8 +15,8 @@ int	__play(t_game g)
 		return (1);
 	g.vars.win = mlx_new_window(g.vars.mlx, windowW, windowH, "cub3D");
 	g.img.img = mlx_new_image(g.vars.mlx, 1280, 720);
-	g.img.addr = mlx_get_data_addr(g.img.img, &g.img.bits_per_pixel\
-		, &g.img.line_length, &g.img.endian);
+	g.img.addr = mlx_get_data_addr(g.img.img, &g.img.bits_per_pixel, \
+		&g.img.line_length, &g.img.endian);
 	__print_frame(&g);
 	mlx_hook(g.vars.win, 2, 1L << 0, __key_hook, &g);
 	mlx_hook(g.vars.win, 17, 0, __close_window, &g);
