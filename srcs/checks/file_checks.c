@@ -91,20 +91,6 @@ int	__check_sprites(t_game *g)
 	return (0);
 }
 
-int	__init_textures(t_game *g)
-{
-	int	w;
-	int	h;
-
-	if (__check_sprites(g))
-		return (1);
-	g->no_tex = mlx_xpm_file_to_image(g->vars.mlx, g->no, &w, &h);
-	g->so_tex = mlx_xpm_file_to_image(g->vars.mlx, g->so, &w, &h);
-	g->we_tex = mlx_xpm_file_to_image(g->vars.mlx, g->we, &w, &h);
-	g->ea_tex = mlx_xpm_file_to_image(g->vars.mlx, g->ea, &w, &h);
-	return (0);
-}
-
 int	__file_checks(char *str, t_game *g)
 {
 	char	*buf;
@@ -124,6 +110,8 @@ int	__file_checks(char *str, t_game *g)
 	buf = __strndup(buf, start_map);
 	if (__data_checks(buf, g))
 		return (1);//puterr exemple map ?
+	if (__check_sprites(g))
+		return (__puterr("Invalid textures"));
 	if (__map_checks(g))
 		return (__puterr("Wrong map format"));
 	return (0);

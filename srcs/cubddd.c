@@ -32,6 +32,17 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+void	__init_textures(t_game *g)
+{
+	int	w;
+	int	h;
+
+	g->no_tex = mlx_xpm_file_to_image(g->vars.mlx, g->no, &w, &h);
+	g->so_tex = mlx_xpm_file_to_image(g->vars.mlx, g->so, &w, &h);
+	g->we_tex = mlx_xpm_file_to_image(g->vars.mlx, g->we, &w, &h);
+	g->ea_tex = mlx_xpm_file_to_image(g->vars.mlx, g->ea, &w, &h);
+}
+
 int	__play(t_game g)
 {
 	g.vars.mlx = mlx_init();
@@ -41,6 +52,7 @@ int	__play(t_game g)
 	g.img.img = mlx_new_image(g.vars.mlx, 1280, 720);
 	g.img.addr = mlx_get_data_addr(g.img.img, &g.img.bits_per_pixel, \
 		&g.img.line_length, &g.img.endian);
+	__init_textures(&g);
 	__print_frame(&g);
 	mlx_hook(g.vars.win, 2, 1L << 0, __key_press, &g);
 	mlx_hook(g.vars.win, 3, 1L << 1, __key_release, &g);

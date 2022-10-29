@@ -75,7 +75,7 @@ void	__arrows(t_game *g)
 
 int	__loop(t_game *g)
 {
-	g->move_speed = 0.12;
+	g->move_speed = 0.09;
 	g->rot_speed = 0.07;
 	if (g->w || g->s)
 		__front_back(g);
