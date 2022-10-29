@@ -11,6 +11,19 @@ void	__init_game(t_game *g)
 	g->esc = 0;
 }
 
+void	__free_struct(t_game *g)
+{
+	__free_split(g->map);
+	free(g->no);
+	free(g->so);
+	free(g->we);
+	free(g->ea);
+	mlx_destroy_image(g->vars.mlx, g->no_tex);
+	mlx_destroy_image(g->vars.mlx, g->so_tex);
+	mlx_destroy_image(g->vars.mlx, g->we_tex);
+	mlx_destroy_image(g->vars.mlx, g->ea_tex);
+}
+
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char	*dst;
@@ -49,12 +62,11 @@ int	main(int ac, char **av, char **env)
 		if (__file_checks(av[1], &g))
 			return (1);
 		if (__play(g))
+		{
+			__free_struct(&g);
 			return (1);
-		__free_split(g.map);
-		free(g.no);
-		free(g.so);
-		free(g.we);
-		free(g.ea);
+		}
+		__free_struct(&g);
 	}
 	return (0);
 }

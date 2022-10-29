@@ -108,14 +108,18 @@ void	__print_view(t_game *g, t_casting *c, int x, int i)
 		i++;
 	}
 	i = 0;
-	if (c->side == 1)
-		c->color = 0x00FFFFFF;
-	else if (c->side == 2)
+	if (c->side == 0 || c->side == 1)
+	{
 		c->color = 0x000000FF;
-	else if (c->side == 3)
-		c->color = 0x00FF0000;
+		if (c->side == 1)
+			c->color = c->color / 2;
+	}
 	else
-		c->color = 0x00000000;
+	{
+		c->color = 0x00FF0000;
+		if (c->side == 3)
+			c->color = c->color / 3;
+	}
 	while (c->draw_start + i < c->draw_end)
 	{
 		my_mlx_pixel_put(&g->img, x, c->draw_start + i, c->color);

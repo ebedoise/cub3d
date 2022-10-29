@@ -68,6 +68,43 @@ int	__start_map(char *str)
 	return (save);
 }
 
+int	__check_sprites(t_game *g)
+{
+	int	i;
+
+	i = open(g->no, O_RDONLY);
+	if (i == -1)
+		return (1);
+	close(i);
+	i = open(g->so, O_RDONLY);
+	if (i == -1)
+		return (1);
+	close(i);
+	i = open(g->we, O_RDONLY);
+	if (i == -1)
+		return (1);
+	close(i);
+	i = open(g->ea, O_RDONLY);
+	if (i == -1)
+		return (1);
+	close(i);
+	return (0);
+}
+
+int	__init_textures(t_game *g)
+{
+	int	w;
+	int	h;
+
+	if (__check_sprites(g))
+		return (1);
+	g->no_tex = mlx_xpm_file_to_image(g->vars.mlx, g->no, &w, &h);
+	g->so_tex = mlx_xpm_file_to_image(g->vars.mlx, g->so, &w, &h);
+	g->we_tex = mlx_xpm_file_to_image(g->vars.mlx, g->we, &w, &h);
+	g->ea_tex = mlx_xpm_file_to_image(g->vars.mlx, g->ea, &w, &h);
+	return (0);
+}
+
 int	__file_checks(char *str, t_game *g)
 {
 	char	*buf;
