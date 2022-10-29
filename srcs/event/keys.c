@@ -53,6 +53,10 @@ void	__arrows(t_game *g)
 	double	old_dir;
 	double	old_plane;
 
+	if (g->w || g->a || g->s || g->d)
+		g->rot_speed = 0.04;
+	else
+		g->rot_speed = 0.07;
 	if (g->right)
 	{
 		old_dir = g->dir_x;
@@ -76,7 +80,6 @@ void	__arrows(t_game *g)
 int	__loop(t_game *g)
 {
 	g->move_speed = 0.09;
-	g->rot_speed = 0.07;
 	if (g->w || g->s)
 		__front_back(g);
 	if (g->a || g->d)
