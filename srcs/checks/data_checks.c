@@ -69,7 +69,7 @@ int	__data_checks(char *str, t_game *g)
 
 	i = 0;
 	__bzero(g);
-	strs = __split(str, "\n");
+	strs = __split(str, '\n');
 	if (!strs)
 		return (__puterr("Malloc err"));
 	free(str);
@@ -87,5 +87,6 @@ int	__data_checks(char *str, t_game *g)
 		__free_split(strs);
 		return (__puterr("Need more data in the file"));
 	}
+	__free_split(strs);
 	return (0);
 }

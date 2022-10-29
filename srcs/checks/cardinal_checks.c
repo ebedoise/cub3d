@@ -5,7 +5,7 @@ int	__cardinals(char *str, t_game *g)
 {
 	char	**strs;
 
-	strs = __split(str, " ");
+	strs = __split(str, ' ');
 	if (!strs)
 		return (1);
 	if (!strs[1] || strs[2])

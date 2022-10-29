@@ -1,66 +1,85 @@
 #include "cub.h"
 
-int	__is_charset(char c, char *charset)
+char	*__subsub(void)
 {
-	int	i;
-
-	i = 0;
-	while (charset[i])
-	{
-		if (charset[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	n_words(char *str, char *charset)
-{
-	int	i;
-	int	words;
-
-	i = 0;
-	words = 0;
-	while (str[i])
-	{
-		if (!__is_charset(str[i], charset))
-			words++;
-		while (!__is_charset(str[i], charset) && str[i])
-			i++;
-		i++;
-	}
-	return (words);
-}
-
-int	len_word(char *str, char *charset)
-{
-	int	i;
-
-	i = 0;
-	while (!__is_charset(str[i], charset) && str[i])
-		i++;
-	return (i);
-}
-
-char	*__str_n_dup(char *src, char n)
-{
-	int		i;
 	char	*array;
 
-	i = 0;
-	array = malloc(sizeof(char) * n + 1);
+	array = malloc(sizeof(char));
 	if (!array)
 		return (NULL);
-	while (src[i] && i < n)
+	array[0] = '\0';
+	return (array);
+}
+
+char	*__substr(char *s, int start, int len)
+{
+	char	*array;
+	int		i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (len > __strlen(s) - start)
+		len = __strlen(s) - start;
+	if (start > __strlen(s))
 	{
-		array[i] = src[i];
+		array = __subsub();
+		return (array);
+	}
+	array = malloc(sizeof(char) * (len + 1));
+	if (!array)
+		return (NULL);
+	while (s[start + i] && i < len)
+	{
+		array[i] = s[start + i];
 		i++;
 	}
 	array[i] = '\0';
 	return (array);
 }
 
-char	**__split(char *str, char *charset)
+int	len_word(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	return (i);
+}
+
+int	n_words(char *s, char c)
+{
+	int	i;
+	int	words;
+
+	i = 0;
+	words = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			i++;
+		else
+		{
+			i += len_word(s + i, c);
+			words++;
+		}
+	}
+	return (words);
+}
+
+char	**__free(char **array, int j)
+{
+	while (j >= 0)
+	{
+		free(array[j]);
+		j--;
+	}
+	free(array);
+	return (NULL);
+}
+
+char	**__split(char *s, char c)
 {
 	char	**array;
 	int		i;
@@ -68,19 +87,21 @@ char	**__split(char *str, char *charset)
 
 	i = 0;
 	j = 0;
-	array = malloc(sizeof(char *) * n_words(str, charset) + 1);
+	if (!s)
+		return (NULL);
+	array = malloc(sizeof(char *) * (n_words(s, c) + 1));
 	if (!array)
 		return (NULL);
-	while (str[i])
+	while (s[i])
 	{
-		if (__is_charset(str[i], charset))
+		if (s[i] == c)
 			i++;
 		else
 		{
-			array[j] = __str_n_dup(str + i, len_word(str + i, charset));
-			j++;
-			while (!__is_charset(str[i], charset) && str[i])
-				i++;
+			array[j++] = __substr(s, i, len_word(s + i, c));
+			if (!array[j - 1])
+				return (__free(array, j - 1));
+			i += len_word(s + i, c);
 		}
 	}
 	array[j] = 0;

@@ -118,7 +118,7 @@ int	__file_checks(char *str, t_game *g)
 	map_tmp = __strdup(buf + start_map);
 	if (__empty_line_map(map_tmp))
 		return (__puterr("Empty line in map"));
-	g->map = __split(map_tmp, "\n");
+	g->map = __split(map_tmp, '\n');
 	free(map_tmp);
 	if (!g->map)
 		return (1);

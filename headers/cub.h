@@ -128,6 +128,6 @@ char	*__strdup(char *s1);
 char	*__strndup(char *s1, int n);
 char	*__puterr_char(char *str);
 
-char	**__split(char *str, char *charset);
+char	**__split(char *s, char c);
 
 #endif
