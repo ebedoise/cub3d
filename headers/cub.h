@@ -60,6 +60,10 @@ typedef struct s_casting
 
 typedef struct s_game
 {
+	void	*no_tex;
+	void	*so_tex;
+	void	*we_tex;
+	void	*ea_tex;
 	char	**map;
 	char	*no;
 	char	*so;
