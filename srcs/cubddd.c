@@ -32,7 +32,7 @@ int	__play(t_game g)
 	mlx_hook(g.vars.win, 2, 1L << 0, __key_press, &g);
 	mlx_hook(g.vars.win, 3, 1L << 1, __key_release, &g);
 	mlx_hook(g.vars.win, 17, 0, __close_window, &g);
-	mlx_loop_hook(g.vars.mlx, __keys, &g);
+	mlx_loop_hook(g.vars.mlx, __loop, &g);
 	mlx_loop(g.vars.mlx);
 	return (0);
 }

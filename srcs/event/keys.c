@@ -6,21 +6,21 @@ void	__front_back(t_game *g)
 
 	if (g->w)
 	{
-		save = g->pos_x + g->dir_x * 0.17;
+		save = g->pos_x + g->dir_x * g->move_speed;
 		if (g->map[(int)save][(int)g->pos_y] != '1')
-			g->pos_x += g->dir_x * 0.17;
-		save = g->pos_y + g->dir_y * 0.17;
+			g->pos_x += g->dir_x * g->move_speed;
+		save = g->pos_y + g->dir_y * g->move_speed;
 		if (g->map[(int)g->pos_x][(int)save] != '1')
-			g->pos_y += g->dir_y * 0.17;
+			g->pos_y += g->dir_y * g->move_speed;
 	}
-	else if (g->s)
+	if (g->s)
 	{
-		save = g->pos_x - g->dir_x * 0.17;
+		save = g->pos_x - g->dir_x * g->move_speed;
 		if (g->map[(int)save][(int)g->pos_y] != '1')
-			g->pos_x -= g->dir_x * 0.17;
-		save = g->pos_y - g->dir_y * 0.17;
+			g->pos_x -= g->dir_x * g->move_speed;
+		save = g->pos_y - g->dir_y * g->move_speed;
 		if (g->map[(int)g->pos_x][(int)save] != '1')
-			g->pos_y -= g->dir_y * 0.17;
+			g->pos_y -= g->dir_y * g->move_speed;
 	}
 }
 
@@ -30,21 +30,21 @@ void	__right_left(t_game *g)
 
 	if (g->d)
 	{
-		save = g->pos_x - g->plane_x * 0.17;
+		save = g->pos_x - g->plane_x * g->move_speed;
 		if (g->map[(int)save][(int)g->pos_y] != '1')
-			g->pos_x -= g->plane_x * 0.17;
-		save = g->pos_y - g->plane_y * 0.17;
+			g->pos_x -= g->plane_x * g->move_speed;
+		save = g->pos_y - g->plane_y * g->move_speed;
 		if (g->map[(int)g->pos_x][(int)save] != '1')
-			g->pos_y -= g->plane_y * 0.17;
+			g->pos_y -= g->plane_y * g->move_speed;
 	}
-	else if (g->a)
+	if (g->a)
 	{
-		save = g->pos_x + g->plane_x * 0.17;
+		save = g->pos_x + g->plane_x * g->move_speed;
 		if (g->map[(int)save][(int)g->pos_y] != '1')
-			g->pos_x += g->plane_x * 0.17;
-		save = g->pos_y + g->plane_y * 0.17;
+			g->pos_x += g->plane_x * g->move_speed;
+		save = g->pos_y + g->plane_y * g->move_speed;
 		if (g->map[(int)g->pos_x][(int)save] != '1')
-			g->pos_y += g->plane_y * 0.17;
+			g->pos_y += g->plane_y * g->move_speed;
 	}
 }
 
@@ -56,32 +56,32 @@ void	__arrows(t_game *g)
 	if (g->right)
 	{
 		old_dir = g->dir_x;
-		g->dir_x = g->dir_x * cos(-0.12) - g->dir_y * sin(-0.12);
-		g->dir_y = old_dir * sin(-0.12) + g->dir_y * cos(-0.12);
+		g->dir_x = g->dir_x * cos(-(g->rot_speed)) - g->dir_y * sin(-(g->rot_speed));
+		g->dir_y = old_dir * sin(-(g->rot_speed)) + g->dir_y * cos(-(g->rot_speed));
 		old_plane = g->plane_x;
-		g->plane_x = g->plane_x * cos(-0.12) - g->plane_y * sin(-0.12);
-		g->plane_y = old_plane * sin(-0.12) + g->plane_y * cos(-0.12);
+		g->plane_x = g->plane_x * cos(-(g->rot_speed)) - g->plane_y * sin(-(g->rot_speed));
+		g->plane_y = old_plane * sin(-(g->rot_speed)) + g->plane_y * cos(-(g->rot_speed));
 	}
-	else if (g->left)
+	if (g->left)
 	{
 		old_dir = g->dir_x;
-		g->dir_x = g->dir_x * cos(0.12) - g->dir_y * sin(0.12);
-		g->dir_y = old_dir * sin(0.12) + g->dir_y * cos(0.12);
+		g->dir_x = g->dir_x * cos(g->rot_speed) - g->dir_y * sin(g->rot_speed);
+		g->dir_y = old_dir * sin(g->rot_speed) + g->dir_y * cos(g->rot_speed);
 		old_plane = g->plane_x;
-		g->plane_x = g->plane_x * cos(0.12) - g->plane_y * sin(0.12);
-		g->plane_y = old_plane * sin(0.12) + g->plane_y * cos(0.12);
+		g->plane_x = g->plane_x * cos(g->rot_speed) - g->plane_y * sin(g->rot_speed);
+		g->plane_y = old_plane * sin(g->rot_speed) + g->plane_y * cos(g->rot_speed);
 	}
 }
 
-int	__keys(t_game *g)
+int	__loop(t_game *g)
 {
-	g->move_speed = 0.17;
-	g->rot_speed = 0.12;
+	g->move_speed = 0.12;
+	g->rot_speed = 0.07;
 	if (g->w || g->s)
 		__front_back(g);
-	else if (g->a || g->d)
+	if (g->a || g->d)
 		__right_left(g);
-	else if (g->right || g->left)
+	if (g->right || g->left)
 		__arrows(g);
 	__print_frame(g);
 	return (0);

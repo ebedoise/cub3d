@@ -91,7 +91,7 @@ typedef struct s_game
 void	__destroy(t_game *g);
 
 int	__close_window(t_game *g);
-int	__keys(t_game *g);
+int	__loop(t_game *g);
 int	__key_press(int keycode, t_game *g);
 int	__key_release(int keycode, t_game *g);
 
