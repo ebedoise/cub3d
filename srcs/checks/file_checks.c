@@ -91,6 +91,20 @@ int	__check_sprites(t_game *g)
 	return (0);
 }
 
+int	__empty_line_map(char *map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i] && map[i + 1])
+	{
+		if (map[i] == '\n' && map[i + 1] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	__file_checks(char *str, t_game *g)
 {
 	char	*buf;
@@ -101,8 +115,9 @@ int	__file_checks(char *str, t_game *g)
 	if (!buf)
 		return (1);
 	start_map = __start_map(buf);
-	//check empty lines map ?
 	map_tmp = __strdup(buf + start_map);
+	if (__empty_line_map(map_tmp))
+		return (__puterr("Empty line in map"));
 	g->map = __split(map_tmp, "\n");
 	free(map_tmp);
 	if (!g->map)
