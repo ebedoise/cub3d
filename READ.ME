@@ -1,34 +1,12 @@
 TO-DO LIST
 
-- multiple keys -> key press key release ?
 - change split -> invalide read/conditional jump/leak
-- use real colors
+- /\ maybe just free split -> cardinal split
+- init everything from the get go
 - add textures
-- fix fisheye
 - empty lines in map
 
 - fix minimap
-
-KEYS:
-V-  <- -> change angle view
-V-  W A S D change position
-V-  ESC close window & exit
-V-  Red Cross cf. ESC
-
-PARSING:
-V- check extension .cub -> strcmp(name + strlen(name) - 4, ".cub")
-V- 6 possible characters in map: 1, 0, N, S, E, W
-V- map closed/surrounded by walls(1)
-- except in map, can be empty lines and/or spaces
-V- map last, else no order
-V- each elem first info is type ex:
-	- NO ./path_to_the_north_texture
-	- SO ./path_to_the_south_texture
-	- WE ./path_to_the_west_texture
-	- EA ./path_to_the_east_texture
-	- F 220,100,0
-	- C 225,30,0
-- if misconfiguration in file "Error\n" + error message
 
 BONUS:
 - wall collisions
