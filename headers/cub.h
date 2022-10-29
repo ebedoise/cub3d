@@ -66,6 +66,13 @@ typedef struct s_game
 	char	*we;
 	char	*ea;
 	int	map_max;
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	int	right;
+	int	left;
+	int	esc;
 	double	dir_x;
 	double	dir_y;
 	double	pos_x;
@@ -84,7 +91,9 @@ typedef struct s_game
 void	__destroy(t_game *g);
 
 int	__close_window(t_game *g);
-int	__key_hook(int keycode, t_game *g);
+int	__keys(t_game *g);
+int	__key_press(int keycode, t_game *g);
+int	__key_release(int keycode, t_game *g);
 
 // game
 void	__print_frame(t_game *g);
