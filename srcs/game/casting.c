@@ -77,12 +77,16 @@ void	__dda(t_game *g, t_casting *c)
 	}
 }
 
-void	__prep_print_view(t_casting *c)
+void	__prep_print_view(t_game *g, t_casting *c)
 {
 	if (c->side == 0)
-		c->perp_wall_dist = (c->side_dist_x - c->delta_dist_x);
+		c->perp_wall_dist = (c->map_x - g->pos_x + (1 - c->step_x) / 2) / c->ray_dir_x;
 	else
-		c->perp_wall_dist = (c->side_dist_y - c->delta_dist_y);
+		c->perp_wall_dist = (c->map_y - g->pos_y + (1 - c->step_y) / 2) / c->ray_dir_y;
+//	if (c->side == 0)
+//		c->perp_wall_dist = (c->side_dist_x - c->delta_dist_x);
+//	else
+//		c->perp_wall_dist = (c->side_dist_y - c->delta_dist_y);
 	c->line_height = (int)(windowH / c->perp_wall_dist);
 	c->draw_start = (-1 * c->line_height) / 2 + windowH / 2;
 	if (c->draw_start < 0)
@@ -131,7 +135,7 @@ void	__print_frame(t_game *g)
 		__init_calc(g, &c, x);
 		__dist_inter(g, &c);
 		__dda(g, &c);
-		__prep_print_view(&c);
+		__prep_print_view(g, &c);
 		__print_view(g, &c, x);
 		x++;
 	}
