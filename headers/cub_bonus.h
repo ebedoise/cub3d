@@ -1,5 +1,5 @@
-#ifndef CUB_H
-# define CUB_H
+#ifndef CUB_BONUS_H
+# define CUB_BONUS_H
 
 # include <mlx.h>
 # include <unistd.h>
@@ -104,6 +104,8 @@ void	__print_frame(t_game *g);
 void	__destroy(t_game *g);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	__print_view(t_game *g, t_casting *c, int x, int i);
+void	__minimap(t_game *g);
+void	__minimap_v2(t_game *g, int x, int i);
 
 // checks
 int		__input(int ac, char **av, char **env);

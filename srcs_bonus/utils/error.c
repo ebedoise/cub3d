@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "cub_bonus.h"
 
 //oui for flags in e2z3
 int	__puterr(char *str)

@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	__init_calc(t_game *g, t_casting *c, int x)
 {

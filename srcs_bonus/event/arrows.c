@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	__left_arrow(t_game *g, double old_dir, double old_plane)
 {

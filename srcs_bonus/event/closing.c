@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	__destroy(t_game *g)
 {

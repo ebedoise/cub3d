@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	__print_block(t_img img, int i, int j, int color)
 {

@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "cub_bonus.h"
 
 char	*init_file(char *str)
 {

@@ -8,7 +8,7 @@ F_UTILS		= utils.c utils2.c error.c split.c clean.c
 FILES		+= $(addprefix utils/, $(F_UTILS))
 F_GNL		= get_next_line.c get_next_line_utils.c
 FILES		+= $(addprefix gnl/, $(F_GNL))
-F_GAME		= casting.c print_view.c minimap.c
+F_GAME		= casting.c print_view.c
 FILES		+= $(addprefix game/, $(F_GAME))
 F_EVENT		= keys.c arrows.c closing.c
 FILES		+= $(addprefix event/, $(F_EVENT))
@@ -22,9 +22,9 @@ F_UTILS_B	= utils.c utils2.c error.c split.c clean.c
 FILES_B		+= $(addprefix utils/, $(F_UTILS_B))
 F_GNL_B		= get_next_line.c get_next_line_utils.c
 FILES_B		+= $(addprefix gnl/, $(F_GNL_B))
-F_GAME_B	= casting.c minimap.c
+F_GAME_B	= casting.c print_view.c minimap.c
 FILES_B		+= $(addprefix game/, $(F_GAME_B))
-F_EVENT_B	= keys.c closing.c
+F_EVENT_B		= keys.c arrows.c closing.c
 FILES_B		+= $(addprefix event/, $(F_EVENT_B))
 
 # Colors
