@@ -8,12 +8,10 @@ F_UTILS		= utils.c utils2.c error.c split.c clean.c
 FILES		+= $(addprefix utils/, $(F_UTILS))
 F_GNL		= get_next_line.c get_next_line_utils.c
 FILES		+= $(addprefix gnl/, $(F_GNL))
-F_GAME		= casting.c minimap.c
+F_GAME		= casting.c print_view.c minimap.c
 FILES		+= $(addprefix game/, $(F_GAME))
-F_EVENT		= keys.c closing.c
+F_EVENT		= keys.c arrows.c closing.c
 FILES		+= $(addprefix event/, $(F_EVENT))
-F_TEXTURES	=
-FILES		+= $(addprefix textures/, $(F_TEXTURES))
 
 # Names + files BONUS
 NAME_B		= cub3D_bonus
@@ -28,8 +26,6 @@ F_GAME_B	= casting.c minimap.c
 FILES_B		+= $(addprefix game/, $(F_GAME_B))
 F_EVENT_B	= keys.c closing.c
 FILES_B		+= $(addprefix event/, $(F_EVENT_B))
-F_TEXTURES_B	=
-FILES_B		+= $(addprefix textures/, $(F_TEXTURES_B))
 
 # Colors
 _END		= \033[0m

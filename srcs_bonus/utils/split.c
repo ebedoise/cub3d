@@ -68,17 +68,6 @@ int	n_words(char *s, char c)
 	return (words);
 }
 
-char	**__free(char **array, int j)
-{
-	while (j >= 0)
-	{
-		free(array[j]);
-		j--;
-	}
-	free(array);
-	return (NULL);
-}
-
 char	**__split(char *s, char c)
 {
 	char	**array;

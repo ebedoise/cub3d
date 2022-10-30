@@ -1,6 +1,28 @@
 #include "cub.h"
 
-// add checks for the textures when implemented
+int	__check_sprites(t_game *g)
+{
+	int	i;
+
+	i = open(g->no, O_RDONLY);
+	if (i == -1)
+		return (1);
+	close(i);
+	i = open(g->so, O_RDONLY);
+	if (i == -1)
+		return (1);
+	close(i);
+	i = open(g->we, O_RDONLY);
+	if (i == -1)
+		return (1);
+	close(i);
+	i = open(g->ea, O_RDONLY);
+	if (i == -1)
+		return (1);
+	close(i);
+	return (0);
+}
+
 int	__cardinals(char *str, t_game *g)
 {
 	char	**strs;

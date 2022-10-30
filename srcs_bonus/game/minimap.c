@@ -58,14 +58,11 @@ void	__minimap(t_game *g)
 	__print_block(g->img, g->pos_x * 8, g->pos_y * 8, 0x00FF00FF);
 }
 
-void	__minimap_v2(t_game *g)
+void	__minimap_v2(t_game *g, int i, int j)
 {
-	int	i;
-	int	j;
 	int	x;
 	int	y;
 
-	i = 0;
 	x = g->pos_x - 8;
 	while (i < 17)
 	{
@@ -75,7 +72,8 @@ void	__minimap_v2(t_game *g)
 		{
 			if (i == 8 && j == 8)
 				__print_block_v2(g->img, i * 8, j * 8, 0x00FF00FF);
-			else if (x >= 0 && y >= 0 && x < g->map_max && y < __strlen(g->map[x])
+			else if (x >= 0 && y >= 0 && x < g->map_max
+				&& y < __strlen(g->map[x])
 				&& g->map[x][y] && g->map[x][y] == '1')
 				__print_block_v2(g->img, i * 8, j * 8, 0x00FFFFFF);
 			else

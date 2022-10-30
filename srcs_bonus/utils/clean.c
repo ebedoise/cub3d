@@ -12,3 +12,14 @@ void	__free_split(char **strs)
 	}
 	free(strs);
 }
+
+char	**__free(char **array, int j)
+{
+	while (j >= 0)
+	{
+		free(array[j]);
+		j--;
+	}
+	free(array);
+	return (NULL);
+}

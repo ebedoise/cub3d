@@ -48,35 +48,6 @@ void	__right_left(t_game *g)
 	}
 }
 
-void	__arrows(t_game *g)
-{
-	double	old_dir;
-	double	old_plane;
-
-	if (g->w || g->a || g->s || g->d)
-		g->rot_speed = 0.04;
-	else
-		g->rot_speed = 0.07;
-	if (g->right)
-	{
-		old_dir = g->dir_x;
-		g->dir_x = g->dir_x * cos(-(g->rot_speed)) - g->dir_y * sin(-(g->rot_speed));
-		g->dir_y = old_dir * sin(-(g->rot_speed)) + g->dir_y * cos(-(g->rot_speed));
-		old_plane = g->plane_x;
-		g->plane_x = g->plane_x * cos(-(g->rot_speed)) - g->plane_y * sin(-(g->rot_speed));
-		g->plane_y = old_plane * sin(-(g->rot_speed)) + g->plane_y * cos(-(g->rot_speed));
-	}
-	if (g->left)
-	{
-		old_dir = g->dir_x;
-		g->dir_x = g->dir_x * cos(g->rot_speed) - g->dir_y * sin(g->rot_speed);
-		g->dir_y = old_dir * sin(g->rot_speed) + g->dir_y * cos(g->rot_speed);
-		old_plane = g->plane_x;
-		g->plane_x = g->plane_x * cos(g->rot_speed) - g->plane_y * sin(g->rot_speed);
-		g->plane_y = old_plane * sin(g->rot_speed) + g->plane_y * cos(g->rot_speed);
-	}
-}
-
 int	__loop(t_game *g)
 {
 	g->move_speed = 0.09;

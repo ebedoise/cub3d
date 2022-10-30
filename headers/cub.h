@@ -93,6 +93,7 @@ typedef struct s_game
 
 // event
 void	__destroy(t_game *g);
+void	__arrows(t_game *g);
 
 int		__close_window(t_game *g);
 int		__loop(t_game *g);
@@ -102,9 +103,10 @@ int		__key_release(int keycode, t_game *g);
 // game
 void	__print_frame(t_game *g);
 void	__destroy(t_game *g);
-void	__minimap_v2(t_game *g);
+void	__minimap_v2(t_game *g, int i, int j);
 void	__minimap(t_game *g);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+void	__print_view(t_game *g, t_casting *c, int x, int i);
 
 // checks
 int		__input(int ac, char **av, char **env);
@@ -113,6 +115,7 @@ int		__data_checks(char *str, t_game *g);
 int		__map_checks(t_game *g);
 int		__cardinals(char *str, t_game *g);
 int		__colors(char *str, t_game *g, char c, int i);
+int		__check_sprites(t_game *g);
 
 // utils
 void	__free_split(char **strs);
@@ -129,5 +132,6 @@ char	*__strndup(char *s1, int n);
 char	*__puterr_char(char *str);
 
 char	**__split(char *s, char c);
+char	**__free(char **array, int j);
 
 #endif

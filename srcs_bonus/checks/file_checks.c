@@ -68,29 +68,6 @@ int	__start_map(char *str)
 	return (save);
 }
 
-int	__check_sprites(t_game *g)
-{
-	int	i;
-
-	i = open(g->no, O_RDONLY);
-	if (i == -1)
-		return (1);
-	close(i);
-	i = open(g->so, O_RDONLY);
-	if (i == -1)
-		return (1);
-	close(i);
-	i = open(g->we, O_RDONLY);
-	if (i == -1)
-		return (1);
-	close(i);
-	i = open(g->ea, O_RDONLY);
-	if (i == -1)
-		return (1);
-	close(i);
-	return (0);
-}
-
 int	__empty_line_map(char *map)
 {
 	int	i;
@@ -124,7 +101,7 @@ int	__file_checks(char *str, t_game *g)
 		return (1);
 	buf = __strndup(buf, start_map);
 	if (__data_checks(buf, g))
-		return (1);//puterr exemple map ?
+		return (1);
 	if (__check_sprites(g))
 		return (__puterr("Invalid textures"));
 	if (__map_checks(g))
