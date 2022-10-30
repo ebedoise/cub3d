@@ -150,7 +150,7 @@ void	__print_frame(t_game *g)
 		__print_view(g, &c, x, 0);
 		x++;
 	}
-	__minimap(g);
-	__minimap_v2(g);
+//	__minimap(g);
+//	__minimap_v2(g);
 	mlx_put_image_to_window(g->vars.mlx, g->vars.win, g->img.img, 0, 0);
 }
