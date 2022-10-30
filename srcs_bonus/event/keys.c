@@ -50,7 +50,9 @@ void	__right_left(t_game *g)
 
 int	__loop(t_game *g)
 {
-	g->move_speed = 0.09;
+	g->move_speed = 0.06;
+	if (g->shift)
+		g->move_speed = 0.1;
 	if (g->w || g->s)
 		__front_back(g);
 	if (g->a || g->d)
@@ -75,6 +77,8 @@ int	__key_press(int keycode, t_game *g)
 		g->right = 1;
 	else if (keycode == 65361)
 		g->left = 1;
+	else if (keycode == 65505)
+		g->shift = 1;
 	else if (keycode == 65307)
 		__destroy(g);
 	return (0);
@@ -94,5 +98,7 @@ int	__key_release(int keycode, t_game *g)
 		g->right = 0;
 	else if (keycode == 65361)
 		g->left = 0;
+	else if (keycode == 65505)
+		g->shift = 0;
 	return (0);
 }

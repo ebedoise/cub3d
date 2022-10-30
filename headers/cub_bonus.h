@@ -75,6 +75,7 @@ typedef struct s_game
 	int		d;
 	int		right;
 	int		left;
+	int		shift;
 	int		esc;
 	double	dir_x;
 	double	dir_y;
