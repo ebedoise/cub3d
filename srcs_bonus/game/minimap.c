@@ -5,13 +5,13 @@ void	__print_block(t_img img, int i, int j, int color)
 	int	x;
 	int	y;
 
-	x = 0;
-	while (x < 8)
+	x = -4;
+	while (x < 4)
 	{
-		y = 0;
-		while (y < 8)
+		y = -4;
+		while (y < 4)
 		{
-			my_mlx_pixel_put(&img, j + x, i + y, color);
+			my_mlx_pixel_put(&img, j + x + 8, i + y + 8, color);
 			y++;
 		}
 		x++;

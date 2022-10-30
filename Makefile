@@ -24,7 +24,7 @@ F_GNL_B		= get_next_line.c get_next_line_utils.c
 FILES_B		+= $(addprefix gnl/, $(F_GNL_B))
 F_GAME_B	= casting.c print_view.c minimap.c
 FILES_B		+= $(addprefix game/, $(F_GAME_B))
-F_EVENT_B		= keys.c arrows.c closing.c
+F_EVENT_B	= keys.c arrows.c mouse.c closing.c
 FILES_B		+= $(addprefix event/, $(F_EVENT_B))
 
 # Colors

@@ -76,6 +76,7 @@ typedef struct s_game
 	int		right;
 	int		left;
 	int		shift;
+	int		mouse_x;
 	int		esc;
 	double	dir_x;
 	double	dir_y;
@@ -94,11 +95,14 @@ typedef struct s_game
 // event
 void	__destroy(t_game *g);
 void	__arrows(t_game *g);
+void	__left_mouse(t_game *g);
+void	__right_mouse(t_game *g);
 
 int		__close_window(t_game *g);
 int		__loop(t_game *g);
 int		__key_press(int keycode, t_game *g);
 int		__key_release(int keycode, t_game *g);
+int		__mouse_move(int x, int y, t_game *g);
 
 // game
 void	__print_frame(t_game *g);

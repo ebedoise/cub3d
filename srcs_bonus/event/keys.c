@@ -59,6 +59,10 @@ int	__loop(t_game *g)
 		__right_left(g);
 	if (g->right || g->left)
 		__arrows(g);
+	if (g->mouse_x < (W_W / 2) - 50)
+		__left_mouse(g);
+	if (g->mouse_x > (W_W / 2) + 50)
+		__right_mouse(g);
 	__print_frame(g);
 	return (0);
 }
