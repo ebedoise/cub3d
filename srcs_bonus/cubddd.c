@@ -56,6 +56,8 @@ int	__play(t_game g)
 		&g.img.line_length, &g.img.endian);
 	__init_textures(&g);
 	__print_frame(&g);
+	mlx_mouse_move(g.vars.mlx, g.vars.win, W_W / 2, W_H / 2);
+	//mlx_mouse_hide(g.vars.mlx, g.vars.win);
 	mlx_hook(g.vars.win, 2, 1L << 0, __key_press, &g);
 	mlx_hook(g.vars.win, 3, 1L << 1, __key_release, &g);
 	mlx_hook(g.vars.win, 6, 1L << 6, __mouse_move, &g);

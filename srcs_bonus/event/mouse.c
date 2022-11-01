@@ -48,6 +48,7 @@ void	__right_mouse(t_game *g)
 
 int	__mouse_move(int x, int y, t_game *g)
 {
+	mlx_mouse_move(g->vars.mlx, g->vars.win, W_W / 2, W_H / 2);
 	g->mouse_x = x;
 	(void)y;
 	return (0);
