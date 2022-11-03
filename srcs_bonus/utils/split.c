@@ -48,7 +48,7 @@ int	len_word(char *s, char c)
 	return (i);
 }
 
-int	n_words(char *s, char c)
+int	n_words(char *s, char c) // << haha funny function name...
 {
 	int	i;
 	int	words;
@@ -96,3 +96,6 @@ char	**__split(char *s, char c)
 	array[j] = 0;
 	return (array);
 }
+
+
+// you racist poc ^^

@@ -54,7 +54,7 @@ int	__play(t_game g)
 	g.img.img = mlx_new_image(g.vars.mlx, 1280, 720);
 	g.img.addr = mlx_get_data_addr(g.img.img, &g.img.bits_per_pixel, \
 		&g.img.line_length, &g.img.endian);
-	__init_textures(&g);
+	//__init_textures(&g);
 	__print_frame(&g);
 	mlx_mouse_move(g.vars.mlx, g.vars.win, W_W / 2, W_H / 2);
 	//mlx_mouse_hide(g.vars.mlx, g.vars.win);
