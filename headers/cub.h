@@ -13,6 +13,12 @@
 # define W_H 720
 # define W_W 1280
 
+typedef struct s_coord
+{
+	int	x;
+	int	y;
+}		t_coord;
+
 typedef struct s_rgb
 {
 	int	r;
@@ -30,7 +36,7 @@ typedef struct s_img
 {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bpp;
 	int		line_length;
 	int		endian;
 	int		width;

@@ -15,38 +15,39 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
 int	__init_wall_textures(t_game *g)
 {
-	if (!(g->no_tex.img = mlx_xpm_file_to_image(g->vars.mlx, \
-		g->no, &(g->no_tex.width), &(g->no_tex.height))))
+	g->no_tex.img = mlx_xpm_file_to_image(g->vars.mlx, \
+		g->no, &(g->no_tex.width), &(g->no_tex.height));
+	if (!(g->no_tex.img))
 		return (1);
-	if (!(g->so_tex.img = mlx_xpm_file_to_image(g->vars.mlx, \
-		g->so, &(g->so_tex.width), &(g->so_tex.height))))
+	g->so_tex.img = mlx_xpm_file_to_image(g->vars.mlx, \
+		g->so, &(g->so_tex.width), &(g->so_tex.height));
+	if (!(g->so_tex.img))
 		return (1);
-	if (!(g->we_tex.img = mlx_xpm_file_to_image(g->vars.mlx, \
-		g->we, &(g->we_tex.width), &(g->we_tex.height))))
+	g->we_tex.img = mlx_xpm_file_to_image(g->vars.mlx, \
+		g->we, &(g->we_tex.width), &(g->we_tex.height));
+	if (!(g->we_tex.img))
 		return (1);
-	if (!(g->ea_tex.img = mlx_xpm_file_to_image(g->vars.mlx, \
-		g->ea, &(g->ea_tex.width), &(g->ea_tex.height))))
+	g->ea_tex.img = mlx_xpm_file_to_image(g->vars.mlx, \
+		g->ea, &(g->ea_tex.width), &(g->ea_tex.height));
+	if (!(g->ea_tex.img))
 		return (1);
-	g->no_tex.addr = mlx_get_data_addr(g->no_tex.img, \
-		&(g->no_tex.bits_per_pixel), &(g->no_tex.line_length), \
-		&(g->no_tex.endian));
-	g->so_tex.addr = mlx_get_data_addr(g->so_tex.img, \
-		&(g->so_tex.bits_per_pixel), &(g->so_tex.line_length), \
-		&(g->so_tex.endian));
-	g->we_tex.addr = mlx_get_data_addr(g->we_tex.img, \
-		&(g->we_tex.bits_per_pixel), &(g->we_tex.line_length), \
-		&(g->we_tex.endian));
-	g->ea_tex.addr = mlx_get_data_addr(g->ea_tex.img, \
-		&(g->ea_tex.bits_per_pixel), &(g->ea_tex.line_length), \
-		&(g->ea_tex.endian));
+	g->no_tex.addr = mlx_get_data_addr(g->no_tex.img, &(g->no_tex.bpp), \
+		&(g->no_tex.line_length), &(g->no_tex.endian));
+	g->so_tex.addr = mlx_get_data_addr(g->so_tex.img, &(g->so_tex.bpp), \
+		&(g->so_tex.line_length), &(g->so_tex.endian));
+	g->we_tex.addr = mlx_get_data_addr(g->we_tex.img, &(g->we_tex.bpp), \
+		&(g->we_tex.line_length), &(g->we_tex.endian));
+	g->ea_tex.addr = mlx_get_data_addr(g->ea_tex.img, &(g->ea_tex.bpp), \
+		&(g->ea_tex.line_length), &(g->ea_tex.endian));
 	return (0);
 }
+
 int	__play(t_game g)
 {
 	g.vars.mlx = mlx_init();
@@ -54,7 +55,7 @@ int	__play(t_game g)
 		return (1);
 	g.vars.win = mlx_new_window(g.vars.mlx, W_W, W_H, "cub3D");
 	g.img.img = mlx_new_image(g.vars.mlx, 1280, 720);
-	g.img.addr = mlx_get_data_addr(g.img.img, &g.img.bits_per_pixel, \
+	g.img.addr = mlx_get_data_addr(g.img.img, &g.img.bpp, \
 		&g.img.line_length, &g.img.endian);
 	if (__init_wall_textures(&g))
 		return (__puterr("Can't load textures"));
