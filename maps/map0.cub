@@ -3,8 +3,8 @@ SO ./textures/small_steel.xpm
 WE ./textures/small_micro.xpm
 EA ./textures/small_diagonals.xpm
 
-F 0,255,255
-C 255,0,255
+C 100,100,100
+F 150,150,150
 
         1111111111111111111111111
    1    1000000000110000000000001

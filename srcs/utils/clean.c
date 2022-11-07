@@ -31,8 +31,8 @@ void	__free_struct(t_game *g)
 	free(g->so);
 	free(g->we);
 	free(g->ea);
-	mlx_destroy_image(g->vars.mlx, g->no_tex);
-	mlx_destroy_image(g->vars.mlx, g->so_tex);
-	mlx_destroy_image(g->vars.mlx, g->we_tex);
-	mlx_destroy_image(g->vars.mlx, g->ea_tex);
+	mlx_destroy_image(g->vars.mlx, g->no_tex.img);
+	mlx_destroy_image(g->vars.mlx, g->so_tex.img);
+	mlx_destroy_image(g->vars.mlx, g->we_tex.img);
+	mlx_destroy_image(g->vars.mlx, g->ea_tex.img);
 }

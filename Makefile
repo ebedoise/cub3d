@@ -14,7 +14,7 @@ F_EVENT		= keys.c arrows.c closing.c
 FILES		+= $(addprefix event/, $(F_EVENT))
 
 # Names + files BONUS
-NAME_B		= cub3D
+NAME_B		= cub3D_B
 FILES_B		= cubddd.c
 F_CHECKS_B	= input_checks.c file_checks.c map_checks.c data_checks.c cardinal_checks.c
 FILES_B		+= $(addprefix checks/, $(F_CHECKS_B))

@@ -19,17 +19,34 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	__init_textures(t_game *g)
+int	__init_wall_textures(t_game *g)
 {
-	int	w;
-	int	h;
-
-	g->no_tex = mlx_xpm_file_to_image(g->vars.mlx, g->no, &w, &h);
-	g->so_tex = mlx_xpm_file_to_image(g->vars.mlx, g->so, &w, &h);
-	g->we_tex = mlx_xpm_file_to_image(g->vars.mlx, g->we, &w, &h);
-	g->ea_tex = mlx_xpm_file_to_image(g->vars.mlx, g->ea, &w, &h);
+	if (!(g->no_tex.img = mlx_xpm_file_to_image(g->vars.mlx, \
+		g->no, &(g->no_tex.width), &(g->no_tex.height))))
+		return (1);
+	if (!(g->so_tex.img = mlx_xpm_file_to_image(g->vars.mlx, \
+		g->so, &(g->so_tex.width), &(g->so_tex.height))))
+		return (1);
+	if (!(g->we_tex.img = mlx_xpm_file_to_image(g->vars.mlx, \
+		g->we, &(g->we_tex.width), &(g->we_tex.height))))
+		return (1);
+	if (!(g->ea_tex.img = mlx_xpm_file_to_image(g->vars.mlx, \
+		g->ea, &(g->ea_tex.width), &(g->ea_tex.height))))
+		return (1);
+	g->no_tex.addr = mlx_get_data_addr(g->no_tex.img, \
+		&(g->no_tex.bits_per_pixel), &(g->no_tex.line_length), \
+		&(g->no_tex.endian));
+	g->so_tex.addr = mlx_get_data_addr(g->so_tex.img, \
+		&(g->so_tex.bits_per_pixel), &(g->so_tex.line_length), \
+		&(g->so_tex.endian));
+	g->we_tex.addr = mlx_get_data_addr(g->we_tex.img, \
+		&(g->we_tex.bits_per_pixel), &(g->we_tex.line_length), \
+		&(g->we_tex.endian));
+	g->ea_tex.addr = mlx_get_data_addr(g->ea_tex.img, \
+		&(g->ea_tex.bits_per_pixel), &(g->ea_tex.line_length), \
+		&(g->ea_tex.endian));
+	return (0);
 }
-
 int	__play(t_game g)
 {
 	g.vars.mlx = mlx_init();
@@ -39,7 +56,8 @@ int	__play(t_game g)
 	g.img.img = mlx_new_image(g.vars.mlx, 1280, 720);
 	g.img.addr = mlx_get_data_addr(g.img.img, &g.img.bits_per_pixel, \
 		&g.img.line_length, &g.img.endian);
-	__init_textures(&g);
+	if (__init_wall_textures(&g))
+		return (__puterr("Can't load textures"));
 	__print_frame(&g);
 	mlx_hook(g.vars.win, 2, 1L << 0, __key_press, &g);
 	mlx_hook(g.vars.win, 3, 1L << 1, __key_release, &g);

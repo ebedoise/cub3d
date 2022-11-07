@@ -33,6 +33,8 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }		t_img;
 
 typedef struct s_casting
@@ -47,6 +49,8 @@ typedef struct s_casting
 	int		draw_start;
 	int		draw_end;
 	int		color;
+	int		tex_x;
+	int		tex_y;
 	double	camera_x;
 	double	ray_dir_x;
 	double	ray_dir_y;
@@ -55,14 +59,13 @@ typedef struct s_casting
 	double	delta_dist_x;
 	double	delta_dist_y;
 	double	perp_wall_dist;
+	double	wall_x;
+	double	step;
+	double	tex_pos;
 }		t_casting;
 
 typedef struct s_game
 {
-	void	*no_tex;
-	void	*so_tex;
-	void	*we_tex;
-	void	*ea_tex;
 	char	**map;
 	char	*no;
 	char	*so;
@@ -88,6 +91,10 @@ typedef struct s_game
 	t_rgb	c;
 	t_vars	vars;
 	t_img	img;
+	t_img	no_tex;
+	t_img	so_tex;
+	t_img	we_tex;
+	t_img	ea_tex;
 }		t_game;
 
 // event
