@@ -2,7 +2,8 @@
 
 int	__valid(char c)
 {
-	if (c != '0' && c != '1' && c != 'N' && c != 'S' && c != 'W' && c != 'E')
+	if (c != '0' && c != '1' && c != 'N' && c != 'S'
+		&& c != 'W' && c != 'E' && c != 'D')
 		return (1);
 	return (0);
 }
