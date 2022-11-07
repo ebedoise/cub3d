@@ -57,12 +57,12 @@ void	__print_walls(t_game *g, t_casting *c, t_coord coord)
 	else
 		c->wall_x = g->pos_x + c->perp_wall_dist * c->ray_dir_x;
 	c->wall_x -= __floor((c->wall_x));
-	c->tex_x = (int)(c->wall_x * 64.0);
+	c->tex_x = (int)(c->wall_x * 64.0);//g->tex.width
 	if ((c->side == 0 || c->side == 1) && c->ray_dir_x > 0)
-		c->tex_x = 64 - c->tex_x - 1;
+		c->tex_x = 64 - c->tex_x - 1;//g->tex.width
 	if ((c->side == 2 || c->side == 3) && c->ray_dir_y < 0)
-		c->tex_x = 64 - c->tex_x - 1;
-	c->step = 1.0 * 64.0 / c->line_height;
+		c->tex_x = 64 - c->tex_x - 1;//g->tex.width
+	c->step = 1.0 * 64.0 / c->line_height;//g->tex.height
 	c->tex_pos = (c->draw_start - W_H / 2 + c->line_height / 2) * c->step;
 	while (++(coord.y) < c->draw_end)
 	{

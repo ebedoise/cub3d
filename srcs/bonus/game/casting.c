@@ -82,6 +82,38 @@ void	__prep_print_view(t_game *g, t_casting *c)
 		c->draw_end = W_H - 1;
 }
 
+void	__print_sprite(t_game *g)
+{
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+
+	i = W_H - g->sprite.height - 1;
+	x = 0;
+	while (i < W_H)
+	{
+		j = W_W / 2 - g->sprite.width / 2;
+		y = 0;
+		while (j < W_W / 2 + g->sprite.width / 2)
+		{
+			g->img.addr[i * g->img.line_length + j * g->img.bpp / 8] = \
+				g->sprite.addr[x * g->sprite.line_length \
+				+ y * (g->sprite.bpp / 8)];
+			g->img.addr[i * g->img.line_length + j * g->img.bpp / 8 + 1] = \
+				g->sprite.addr[x * g->sprite.line_length \
+				+ y * (g->sprite.bpp / 8 + 1)];
+			g->img.addr[i * g->img.line_length + j * g->img.bpp / 8 + 2] = \
+				g->sprite.addr[x * g->sprite.line_length \
+				+ y * (g->sprite.bpp / 8 + 2)];
+			j++;
+			y++;
+		}
+		i++;
+		x++;
+	}
+}
+
 void	__print_frame(t_game *g)
 {
 	t_casting	c;
@@ -99,4 +131,5 @@ void	__print_frame(t_game *g)
 	}
 	__minimap(g);
 	mlx_put_image_to_window(g->vars.mlx, g->vars.win, g->img.img, 0, 0);
+	__print_sprite(g);
 }

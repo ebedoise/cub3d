@@ -45,6 +45,13 @@ int	__init_wall_textures(t_game *g)
 		&(g->we_tex.line_length), &(g->we_tex.endian));
 	g->ea_tex.addr = mlx_get_data_addr(g->ea_tex.img, &(g->ea_tex.bpp), \
 		&(g->ea_tex.line_length), &(g->ea_tex.endian));
+	////////////////////////////
+	g->sprite.img = mlx_xpm_file_to_image(g->vars.mlx, \
+		"./textures/chainsaw.xpm", &(g->sprite.width), &(g->sprite.height));
+	if (!(g->sprite.img))
+		return (1);
+	g->sprite.addr = mlx_get_data_addr(g->sprite.img, &(g->sprite.bpp), \
+		&(g->sprite.line_length), &(g->sprite.endian));
 	return (0);
 }
 

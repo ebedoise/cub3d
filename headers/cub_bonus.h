@@ -103,6 +103,7 @@ typedef struct s_game
 	t_img	so_tex;
 	t_img	we_tex;
 	t_img	ea_tex;
+	t_img	sprite;
 }		t_game;
 
 // event
