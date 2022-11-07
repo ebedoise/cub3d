@@ -105,7 +105,7 @@ typedef struct s_game
 
 // event
 void	__destroy(t_game *g);
-void	__arrows(t_game *g);
+void	__arrows(t_game *g, int i);
 
 int		__close_window(t_game *g);
 int		__loop(t_game *g);

@@ -56,7 +56,7 @@ int	__loop(t_game *g)
 	if (g->a || g->d)
 		__right_left(g);
 	if (g->right || g->left)
-		__arrows(g);
+		__arrows(g, 1);
 	__print_frame(g);
 	return (0);
 }

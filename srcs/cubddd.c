@@ -59,6 +59,7 @@ int	__play(t_game g)
 		&g.img.line_length, &g.img.endian);
 	if (__init_wall_textures(&g))
 		return (__puterr("Can't load textures"));
+	__arrows(&g, 0);
 	__print_frame(&g);
 	mlx_hook(g.vars.win, 2, 1L << 0, __key_press, &g);
 	mlx_hook(g.vars.win, 3, 1L << 1, __key_release, &g);
