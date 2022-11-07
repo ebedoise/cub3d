@@ -13,6 +13,12 @@
 # define W_H 720
 # define W_W 1280
 
+typedef struct s_coord
+{
+	int	x;
+	int	y;
+}		t_coord;
+
 typedef struct s_rgb
 {
 	int	r;
@@ -30,9 +36,11 @@ typedef struct s_img
 {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bpp;
 	int		line_length;
 	int		endian;
+	int		height;
+	int		width;
 }		t_img;
 
 typedef struct s_casting
@@ -47,6 +55,8 @@ typedef struct s_casting
 	int		draw_start;
 	int		draw_end;
 	int		color;
+	int		tex_x;
+	int		tex_y;
 	double	camera_x;
 	double	ray_dir_x;
 	double	ray_dir_y;
@@ -55,14 +65,13 @@ typedef struct s_casting
 	double	delta_dist_x;
 	double	delta_dist_y;
 	double	perp_wall_dist;
+	double	wall_x;
+	double	step;
+	double	tex_pos;
 }		t_casting;
 
 typedef struct s_game
 {
-	void	*no_tex;
-	void	*so_tex;
-	void	*we_tex;
-	void	*ea_tex;
 	char	**map;
 	char	*no;
 	char	*so;
@@ -90,11 +99,15 @@ typedef struct s_game
 	t_rgb	c;
 	t_vars	vars;
 	t_img	img;
+	t_img	no_tex;
+	t_img	so_tex;
+	t_img	we_tex;
+	t_img	ea_tex;
 }		t_game;
 
 // event
 void	__destroy(t_game *g);
-void	__arrows(t_game *g);
+void	__arrows(t_game *g, int u);
 void	__left_mouse(t_game *g);
 void	__right_mouse(t_game *g);
 
@@ -110,7 +123,6 @@ void	__destroy(t_game *g);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	__print_view(t_game *g, t_casting *c, int x, int i);
 void	__minimap(t_game *g);
-void	__minimap_v2(t_game *g, int x, int i);
 
 // checks
 int		__input(int ac, char **av, char **env);

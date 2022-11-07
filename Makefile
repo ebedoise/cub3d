@@ -55,8 +55,8 @@ MSG_LIB		= ${_LIB}${LIBX}:	${_END}
 MSG_FINISH	= ${_FINISH}${FINISH}${_END}
 
 # Paths
-SRCS_PATH	= srcs/
-SRCS_PATH_B	= srcs_bonus/
+SRCS_PATH	= srcs/mandatory/
+SRCS_PATH_B	= srcs/bonus/
 INCS_PATH	= usr/include headers/ mlx_linux
 OBJS_PATH	= objs/
 OBJS_PATH_B	= objs_bonus/
