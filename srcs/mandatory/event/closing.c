@@ -2,6 +2,7 @@
 
 void	__destroy(t_game *g)
 {
+	__free_struct(g);
 	mlx_destroy_window(g->vars.mlx, g->vars.win);
 	mlx_destroy_display(g->vars.mlx);
 	free(g->vars.mlx);

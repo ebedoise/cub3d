@@ -81,10 +81,7 @@ int	main(int ac, char **av, char **env)
 		if (__file_checks(av[1], &g))
 			return (1);
 		if (__play(g))
-		{
-			__free_struct(&g);
-			return (1);
-		}
+			__destroy(&g);
 		__free_struct(&g);
 	}
 	return (0);
