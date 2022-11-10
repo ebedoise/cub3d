@@ -118,6 +118,8 @@ void	__destroy(t_game *g);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	__print_view(t_game *g, t_casting *c, int x, int i);
 
+double	__floor(double wallX);
+
 // checks
 int		__input(int ac, char **av, char **env);
 int		__file_checks(char *str, t_game *g);

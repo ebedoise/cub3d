@@ -77,7 +77,8 @@ typedef struct s_game
 	char	*so;
 	char	*we;
 	char	*ea;
-	int		map_max;
+	int		map_max_x;
+	int		map_max_y;
 	int		w;
 	int		a;
 	int		s;
@@ -88,6 +89,7 @@ typedef struct s_game
 	int		mouse_x;
 	int		esc;
 	int		doors;
+	int		anim;
 	double	dir_x;
 	double	dir_y;
 	double	pos_x;
@@ -105,6 +107,7 @@ typedef struct s_game
 	t_img	we_tex;
 	t_img	ea_tex;
 	t_img	door;
+	t_img	vit[4];
 }		t_game;
 
 // event
@@ -125,6 +128,8 @@ void	__destroy(t_game *g);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	__print_view(t_game *g, t_casting *c, int x, int i);
 void	__minimap(t_game *g);
+
+double	__floor(double wallX);
 
 // checks
 int		__input(int ac, char **av, char **env);
