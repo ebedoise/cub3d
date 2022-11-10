@@ -54,7 +54,8 @@ int	__sub_map_checks(t_game *g, int i, int j, int *pos)
 		return (__puterr("Bad character in map"));
 	else if ((g->map[i][j] == '0' || g->map[i][j] == 'N'
 		|| g->map[i][j] == 'S' || g->map[i][j] == 'W'
-		|| g->map[i][j] == 'E') && __zero_checks(g, i, j))
+		|| g->map[i][j] == 'E' || g->map[i][j] == 'D')
+		&& __zero_checks(g, i, j))
 		return (__puterr("Map unclosed"));
 	else if ((g->map[i][j] == 'N' || g->map[i][j] == 'S'
 		|| g->map[i][j] == 'W' || g->map[i][j] == 'E'))

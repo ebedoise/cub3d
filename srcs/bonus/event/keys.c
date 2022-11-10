@@ -7,19 +7,23 @@ void	__front_back(t_game *g)
 	if (g->w)
 	{
 		save = g->pos_x + g->dir_x * g->move_speed;
-		if (g->map[(int)save][(int)g->pos_y] != '1')
+		if (g->map[(int)save][(int)g->pos_y] != '1' && (g->doors == -1
+			|| g->map[(int)save][(int)g->pos_y] != 'D'))
 			g->pos_x += g->dir_x * g->move_speed;
 		save = g->pos_y + g->dir_y * g->move_speed;
-		if (g->map[(int)g->pos_x][(int)save] != '1')
+		if (g->map[(int)g->pos_x][(int)save] != '1'&& (g->doors == -1
+			|| g->map[(int)g->pos_x][(int)save] != 'D'))
 			g->pos_y += g->dir_y * g->move_speed;
 	}
 	if (g->s)
 	{
 		save = g->pos_x - g->dir_x * g->move_speed;
-		if (g->map[(int)save][(int)g->pos_y] != '1')
+		if (g->map[(int)save][(int)g->pos_y] != '1' && (g->doors == -1
+			|| g->map[(int)save][(int)g->pos_y] != 'D'))
 			g->pos_x -= g->dir_x * g->move_speed;
 		save = g->pos_y - g->dir_y * g->move_speed;
-		if (g->map[(int)g->pos_x][(int)save] != '1')
+		if (g->map[(int)g->pos_x][(int)save] != '1' && (g->doors == -1
+			|| g->map[(int)g->pos_x][(int)save] != 'D'))
 			g->pos_y -= g->dir_y * g->move_speed;
 	}
 }
@@ -98,6 +102,8 @@ int	__key_release(int keycode, t_game *g)
 		g->d = 0;
 	else if (keycode == 97)
 		g->a = 0;
+	else if (keycode == 101)
+		g->doors *= -1;
 	else if (keycode == 65363)
 		g->right = 0;
 	else if (keycode == 65361)

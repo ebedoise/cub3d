@@ -87,6 +87,7 @@ typedef struct s_game
 	int		shift;
 	int		mouse_x;
 	int		esc;
+	int		doors;
 	double	dir_x;
 	double	dir_y;
 	double	pos_x;
@@ -103,7 +104,7 @@ typedef struct s_game
 	t_img	so_tex;
 	t_img	we_tex;
 	t_img	ea_tex;
-	t_img	sprite;
+	t_img	door;
 }		t_game;
 
 // event

@@ -68,7 +68,9 @@ void	__print_walls(t_game *g, t_casting *c, t_coord coord)
 	{
 		c->tex_y = (int)c->tex_pos;
 		c->tex_pos += c->step;
-		if (c->side == 0)
+		if (g->map[c->map_x][c->map_y] == 'D')
+			__print_wall(g, c, coord, g->door);
+		else if (c->side == 0)
 			__print_wall(g, c, coord, g->no_tex);
 		else if (c->side == 1)
 			__print_wall(g, c, coord, g->so_tex);

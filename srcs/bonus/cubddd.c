@@ -9,6 +9,7 @@ void	__init_game(t_game *g)
 	g->right = 0;
 	g->left = 0;
 	g->esc = 0;
+	g->doors = 1;
 }
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
@@ -48,6 +49,17 @@ int	__init_wall_textures(t_game *g)
 	return (0);
 }
 
+int	__init_door_texture(t_game *g)
+{
+	g->door.img = mlx_xpm_file_to_image(g->vars.mlx, \
+		"./textures/door.xpm", &(g->door.width), &(g->door.height));
+	if (!(g->door.img))
+		return (1);
+	g->door.addr = mlx_get_data_addr(g->door.img, &(g->door.bpp), \
+		&(g->door.line_length), &(g->door.endian));
+	return (0);
+}
+
 int	__play(t_game g)
 {
 	g.vars.mlx = mlx_init();
@@ -58,6 +70,8 @@ int	__play(t_game g)
 	g.img.addr = mlx_get_data_addr(g.img.img, &g.img.bpp, \
 		&g.img.line_length, &g.img.endian);
 	if (__init_wall_textures(&g))
+		return (__puterr("Can't load textures"));
+	if (__init_door_texture(&g))
 		return (__puterr("Can't load textures"));
 	__arrows(&g, 0);
 	__print_frame(&g);

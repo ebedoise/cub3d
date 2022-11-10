@@ -60,7 +60,8 @@ void	__dda(t_game *g, t_casting *c)
 			else
 				c->side = 3;
 		}
-		if (g->map[c->map_x][c->map_y] == '1')
+		if (g->map[c->map_x][c->map_y] == '1'
+			|| (g->doors == 1 && g->map[c->map_x][c->map_y] == 'D'))
 			c->hit = 1;
 	}
 }
