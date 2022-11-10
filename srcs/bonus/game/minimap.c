@@ -51,6 +51,10 @@ void	__minimap(t_game *g)
 		{
 			if (g->map[i][j] == '1')
 				__print_block(g->img, i * 8, j * 8, 0x00FFFFFF);
+			else if (g->map[i][j] == 'D' && g->doors == 1)
+				__print_block(g->img, i * 8, j * 8, 0x00E5E300);
+			else if (g->map[i][j] == 'D' && g->doors == -1)
+				__print_block(g->img, i * 8, j * 8, 0x00C8C8C8);
 			else if (g->map[i][j] != ' ')
 				__print_block(g->img, i * 8, j * 8, 0x00000000);
 			j++;
