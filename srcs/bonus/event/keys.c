@@ -35,19 +35,23 @@ void	__right_left(t_game *g)
 	if (g->d)
 	{
 		save = g->pos_x - g->plane_x * g->move_speed;
-		if (g->map[(int)save][(int)g->pos_y] != '1')
+		if (g->map[(int)save][(int)g->pos_y] != '1' && (g->doors == -1
+			|| g->map[(int)save][(int)g->pos_y] != 'D'))
 			g->pos_x -= g->plane_x * g->move_speed;
 		save = g->pos_y - g->plane_y * g->move_speed;
-		if (g->map[(int)g->pos_x][(int)save] != '1')
+		if (g->map[(int)g->pos_x][(int)save] != '1' && (g->doors == -1
+			|| g->map[(int)g->pos_x][(int)save] != 'D'))
 			g->pos_y -= g->plane_y * g->move_speed;
 	}
 	if (g->a)
 	{
 		save = g->pos_x + g->plane_x * g->move_speed;
-		if (g->map[(int)save][(int)g->pos_y] != '1')
+		if (g->map[(int)save][(int)g->pos_y] != '1' && (g->doors == -1
+			|| g->map[(int)save][(int)g->pos_y] != 'D'))
 			g->pos_x += g->plane_x * g->move_speed;
 		save = g->pos_y + g->plane_y * g->move_speed;
-		if (g->map[(int)g->pos_x][(int)save] != '1')
+		if (g->map[(int)g->pos_x][(int)save] != '1' && (g->doors == -1
+			|| g->map[(int)g->pos_x][(int)save] != 'D'))
 			g->pos_y += g->plane_y * g->move_speed;
 	}
 }
@@ -103,7 +107,14 @@ int	__key_release(int keycode, t_game *g)
 	else if (keycode == 97)
 		g->a = 0;
 	else if (keycode == 101)
+	{
+		if (g->map[(int)g->pos_x][(int)g->pos_y] == 'D')
+		{
+			printf("GAME OVER\nYou got crushed by a door\n");
+			__destroy(g);
+		}
 		g->doors *= -1;
+	}
 	else if (keycode == 65363)
 		g->right = 0;
 	else if (keycode == 65361)

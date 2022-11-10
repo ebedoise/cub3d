@@ -8,7 +8,9 @@ void	__init_game(t_game *g)
 	g->d = 0;
 	g->right = 0;
 	g->left = 0;
+	g->shift = 0;
 	g->esc = 0;
+	g->mouse_x = W_W / 2;
 	g->doors = 1;
 }
 
