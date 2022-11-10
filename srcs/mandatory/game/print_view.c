@@ -24,16 +24,6 @@ void	__print_ceiling_floor(t_game *g, t_casting *c, int x, int i)
 	}
 }
 
-double	__floor(double wallX)
-{
-	double	i;
-
-	i = 0.0;
-	while (wallX - i >= 1.0)
-		i++;
-	return (i);
-}
-
 void	__print_wall(t_game *g, t_casting *c, t_coord coord, t_img wall)
 {
 	g->img.addr[coord.y * g->img.line_length \
@@ -50,6 +40,27 @@ void	__print_wall(t_game *g, t_casting *c, t_coord coord, t_img wall)
 		* (wall.bpp / 8) + 2];
 }
 
+void	__size_tex(t_game *g, t_casting *c)
+{
+	int	n;
+
+	n = 0;
+	if (c->side == 0)
+		n = g->no_tex.width;
+	else if (c->side == 1)
+		n = g->so_tex.width;
+	else if (c->side == 2)
+		n = g->we_tex.width;
+	else if (c->side == 3)
+		n = g->ea_tex.width;
+	c->tex_x = (int)(c->wall_x * (double)n);
+	if ((c->side == 0 || c->side == 1) && c->ray_dir_x > 0)
+		c->tex_x = n - c->tex_x - 1;
+	if ((c->side == 2 || c->side == 3) && c->ray_dir_y < 0)
+		c->tex_x = n - c->tex_x - 1;
+	c->step = 1.0 *(double) n / c->line_height;
+}
+
 void	__print_walls(t_game *g, t_casting *c, t_coord coord)
 {
 	if (c->side == 0 || c->side == 1)
@@ -57,12 +68,7 @@ void	__print_walls(t_game *g, t_casting *c, t_coord coord)
 	else
 		c->wall_x = g->pos_x + c->perp_wall_dist * c->ray_dir_x;
 	c->wall_x -= __floor((c->wall_x));
-	c->tex_x = (int)(c->wall_x * 64.0);//g->tex.width
-	if ((c->side == 0 || c->side == 1) && c->ray_dir_x > 0)
-		c->tex_x = 64 - c->tex_x - 1;//g->tex.width
-	if ((c->side == 2 || c->side == 3) && c->ray_dir_y < 0)
-		c->tex_x = 64 - c->tex_x - 1;//g->tex.width
-	c->step = 1.0 * 64.0 / c->line_height;//g->tex.height
+	__size_tex(g, c);
 	c->tex_pos = (c->draw_start - W_H / 2 + c->line_height / 2) * c->step;
 	while (++(coord.y) < c->draw_end)
 	{

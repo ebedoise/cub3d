@@ -23,3 +23,13 @@ int	__strncmp(char *s1, char *s2, int n)
 		return ((unsigned char)s1[i - 1] - (unsigned char)s2[i - 1]);
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
+
+double	__floor(double wallX)
+{
+	double	i;
+
+	i = 0.0;
+	while (wallX - i >= 1.0)
+		i++;
+	return (i);
+}

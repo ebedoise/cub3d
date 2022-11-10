@@ -103,10 +103,7 @@ int	__file_checks(char *str, t_game *g)
 	if (__data_checks(buf, g))
 		return (1);
 	if (__check_sprites(g))
-	{
-		free(buf);
 		return (__puterr("Invalid textures"));
-	}
 	if (__map_checks(g))
 		return (__puterr("Wrong map format"));
 	return (0);
