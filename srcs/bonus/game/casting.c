@@ -100,6 +100,22 @@ void	__print_frame(t_game *g)
 	}
 	__minimap(g);
 	mlx_put_image_to_window(g->vars.mlx, g->vars.win, g->img.img, 0, 0);
+	if (g->anim <= 50)
+		mlx_put_image_to_window(g->vars.mlx, g->vars.win, \
+			g->vit[0].img, W_W - 178, W_H - 114);
+	else if (g->anim <= 100)
+		mlx_put_image_to_window(g->vars.mlx, g->vars.win, \
+			g->vit[1].img, W_W - 178, W_H - 114);
+	else if (g->anim <= 150)
+		mlx_put_image_to_window(g->vars.mlx, g->vars.win, \
+			g->vit[2].img, W_W - 178, W_H - 114);
+	else if (g->anim <= 200)
+	{
+		mlx_put_image_to_window(g->vars.mlx, g->vars.win, \
+			g->vit[3].img, W_W - 178, W_H - 114);
+		if (g->anim == 200)
+			g->anim = 0;
+	}
 	mlx_string_put(g->vars.mlx, g->vars.win, 10, W_H - 10, 0x00FFFFFF, \
 		"ESC             Quit");
 	mlx_string_put(g->vars.mlx, g->vars.win, 10, W_H - 25, 0x00FFFFFF, \

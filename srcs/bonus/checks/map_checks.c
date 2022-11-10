@@ -78,6 +78,7 @@ int	__map_checks(t_game *g)
 
 	i = 0;
 	pos = 0;
+	g->map_max_y = 0;
 	while (g->map[i])
 	{
 		j = 0;
@@ -85,11 +86,13 @@ int	__map_checks(t_game *g)
 		{
 			if (__sub_map_checks(g, i, j, &pos))
 				return (1);
+			if (j > g->map_max_y)
+				g->map_max_y = j;
 			j++;
 		}
 		i++;
 	}
-	g->map_max = i;
+	g->map_max_x = i;
 	if (!pos)
 		return (__puterr("No starting position"));
 	return (0);

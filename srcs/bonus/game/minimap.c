@@ -42,6 +42,8 @@ void	__minimap(t_game *g)
 	int	j;
 
 	i = 0;
+	if (g->map_max_x * 8 > W_H / 3 || g->map_max_y * 8 > W_W / 3)
+		return ;
 	while (g->map[i])
 	{
 		j = 0;

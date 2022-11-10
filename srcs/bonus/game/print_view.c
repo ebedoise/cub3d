@@ -24,16 +24,6 @@ void	__print_ceiling_floor(t_game *g, t_casting *c, int x, int i)
 	}
 }
 
-double	__floor(double wallX)
-{
-	double	i;
-
-	i = 0.0;
-	while (wallX - i >= 1.0)
-		i++;
-	return (i);
-}
-
 void	__print_wall(t_game *g, t_casting *c, t_coord coord, t_img wall)
 {
 	g->img.addr[coord.y * g->img.line_length \

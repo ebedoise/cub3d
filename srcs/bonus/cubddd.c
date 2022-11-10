@@ -12,6 +12,7 @@ void	__init_game(t_game *g)
 	g->esc = 0;
 	g->mouse_x = W_W / 2;
 	g->doors = 1;
+	g->anim = 0;
 }
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
@@ -51,6 +52,35 @@ int	__init_wall_textures(t_game *g)
 	return (0);
 }
 
+int	__init_vitals(t_game *g)
+{
+	g->vit[0].img = mlx_xpm_file_to_image(g->vars.mlx, \
+		"./textures/vitals1.xpm", &(g->vit[0].width), &(g->vit[0].height));
+	if (!(g->vit[0].img))
+		return (1);
+	g->vit[1].img = mlx_xpm_file_to_image(g->vars.mlx, \
+		"./textures/vitals2.xpm", &(g->vit[1].width), &(g->vit[1].height));
+	if (!(g->vit[1].img))
+		return (1);
+	g->vit[2].img = mlx_xpm_file_to_image(g->vars.mlx, \
+		"./textures/vitals3.xpm", &(g->vit[2].width), &(g->vit[2].height));
+	if (!(g->vit[2].img))
+		return (1);
+	g->vit[3].img = mlx_xpm_file_to_image(g->vars.mlx, \
+		"./textures/vitals4.xpm", &(g->vit[3].width), &(g->vit[3].height));
+	if (!(g->vit[3].img))
+		return (1);
+	g->vit[0].addr = mlx_get_data_addr(g->vit[0].img, &(g->vit[0].bpp), \
+		&(g->vit[0].line_length), &(g->vit[0].endian));
+	g->vit[1].addr = mlx_get_data_addr(g->vit[1].img, &(g->vit[1].bpp), \
+		&(g->vit[1].line_length), &(g->vit[1].endian));
+	g->vit[2].addr = mlx_get_data_addr(g->vit[2].img, &(g->vit[2].bpp), \
+		&(g->vit[2].line_length), &(g->vit[2].endian));
+	g->vit[0].addr = mlx_get_data_addr(g->vit[0].img, &(g->vit[0].bpp), \
+		&(g->vit[3].line_length), &(g->vit[3].endian));
+	return (0);
+}
+
 int	__init_door_texture(t_game *g)
 {
 	g->door.img = mlx_xpm_file_to_image(g->vars.mlx, \
@@ -75,6 +105,8 @@ int	__play(t_game g)
 	if (__init_wall_textures(&g))
 		return (__puterr("Can't load textures"));
 	if (__init_door_texture(&g))
+		return (__puterr("Can't load textures"));
+	if (__init_vitals(&g))
 		return (__puterr("Can't load textures"));
 	__arrows(&g, 0);
 	__print_frame(&g);

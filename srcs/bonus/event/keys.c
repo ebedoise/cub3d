@@ -11,7 +11,7 @@ void	__front_back(t_game *g)
 			|| g->map[(int)save][(int)g->pos_y] != 'D'))
 			g->pos_x += g->dir_x * g->move_speed;
 		save = g->pos_y + g->dir_y * g->move_speed;
-		if (g->map[(int)g->pos_x][(int)save] != '1'&& (g->doors == -1
+		if (g->map[(int)g->pos_x][(int)save] != '1' && (g->doors == -1
 			|| g->map[(int)g->pos_x][(int)save] != 'D'))
 			g->pos_y += g->dir_y * g->move_speed;
 	}
@@ -58,6 +58,7 @@ void	__right_left(t_game *g)
 
 int	__loop(t_game *g)
 {
+	g->anim++;
 	g->move_speed = 0.06;
 	if (g->shift)
 		g->move_speed = 0.1;
