@@ -62,6 +62,7 @@ int	__init_door_texture(t_game *g)
 	return (0);
 }
 
+//mlx_mouse_hide(g.vars.mlx, g.vars.win); fct leaks
 int	__play(t_game g)
 {
 	g.vars.mlx = mlx_init();
@@ -78,7 +79,6 @@ int	__play(t_game g)
 	__arrows(&g, 0);
 	__print_frame(&g);
 	mlx_mouse_move(g.vars.mlx, g.vars.win, W_W / 2, W_H / 2);
-	//mlx_mouse_hide(g.vars.mlx, g.vars.win);
 	mlx_hook(g.vars.win, 2, 1L << 0, __key_press, &g);
 	mlx_hook(g.vars.win, 3, 1L << 1, __key_release, &g);
 	mlx_hook(g.vars.win, 6, 1L << 6, __mouse_move, &g);
@@ -100,10 +100,7 @@ int	main(int ac, char **av, char **env)
 		if (__file_checks(av[1], &g))
 			return (1);
 		if (__play(g))
-		{
-			__free_struct(&g);
-			return (1);
-		}
+			__destroy(&g);
 		__free_struct(&g);
 	}
 	return (0);
