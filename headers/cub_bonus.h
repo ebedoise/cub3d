@@ -110,6 +110,13 @@ typedef struct s_game
 	t_img	vit[4];
 }		t_game;
 
+// inits
+void	__init_game(t_game *g);
+
+int		__init_wall_textures(t_game *g);
+int		__init_vitals(t_game *g);
+int		__init_door_texture(t_game *g);
+
 // event
 void	__destroy(t_game *g);
 void	__arrows(t_game *g, int u);

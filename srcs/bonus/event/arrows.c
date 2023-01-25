@@ -43,6 +43,7 @@ void	__arrows(t_game *g, int i)
 	{
 		g->rot_speed = 0.01;
 		__right_arrow(g, old_dir, old_plane);
+		g->rot_speed = 0.02;
 		__left_arrow(g, old_dir, old_plane);
 	}
 	else
