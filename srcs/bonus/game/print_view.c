@@ -40,6 +40,20 @@ void	__print_wall(t_game *g, t_casting *c, t_coord coord, t_img wall)
 		* (wall.bpp / 8) + 2];
 }
 
+void	__norm(t_game *g, t_casting *c, t_coord coord)
+{
+	if (g->map[c->map_x][c->map_y] == 'D')
+		__print_wall(g, c, coord, g->door);
+	else if (c->side == 0)
+		__print_wall(g, c, coord, g->no_tex);
+	else if (c->side == 1)
+		__print_wall(g, c, coord, g->so_tex);
+	else if (c->side == 2)
+		__print_wall(g, c, coord, g->we_tex);
+	else if (c->side == 3)
+		__print_wall(g, c, coord, g->ea_tex);
+}
+
 void	__print_walls(t_game *g, t_casting *c, t_coord coord)
 {
 	if (c->side == 0 || c->side == 1)
@@ -58,16 +72,7 @@ void	__print_walls(t_game *g, t_casting *c, t_coord coord)
 	{
 		c->tex_y = (int)c->tex_pos;
 		c->tex_pos += c->step;
-		if (g->map[c->map_x][c->map_y] == 'D')
-			__print_wall(g, c, coord, g->door);
-		else if (c->side == 0)
-			__print_wall(g, c, coord, g->no_tex);
-		else if (c->side == 1)
-			__print_wall(g, c, coord, g->so_tex);
-		else if (c->side == 2)
-			__print_wall(g, c, coord, g->we_tex);
-		else if (c->side == 3)
-			__print_wall(g, c, coord, g->ea_tex);
+		__norm(g, c, coord);
 	}
 }
 

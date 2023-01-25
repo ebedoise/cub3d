@@ -135,6 +135,8 @@ void	__destroy(t_game *g);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	__print_view(t_game *g, t_casting *c, int x, int i);
 void	__minimap(t_game *g);
+void	__print_vitals(t_game *g);
+void	__print_keys(t_game *g);
 
 double	__floor(double wallX);
 
