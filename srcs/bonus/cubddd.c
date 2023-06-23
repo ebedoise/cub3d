@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cubddd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: embedois <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/08 15:27:59 by embedois          #+#    #+#             */
+/*   Updated: 2023/02/09 13:08:09 by embedois         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub_bonus.h"
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
@@ -46,7 +58,10 @@ int	main(int ac, char **av, char **env)
 	{
 		__init_game(&g);
 		if (__file_checks(av[1], &g))
+		{
+			__free_struct1(&g);
 			return (1);
+		}
 		if (__play(g))
 			__destroy(&g);
 		__free_struct(&g);

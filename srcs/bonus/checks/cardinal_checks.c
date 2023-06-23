@@ -1,24 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cardinal_checks.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: embedois <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/08 15:28:09 by embedois          #+#    #+#             */
+/*   Updated: 2023/02/09 13:11:20 by embedois         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub_bonus.h"
+
+int	__check_ext_sprites(t_game *g)
+{
+	if (__strcmp(g->no + __strlen(g->no) - 4, ".xpm"))
+		return (__puterr("Wrong textures type"));
+	if (__strcmp(g->so + __strlen(g->so) - 4, ".xpm"))
+		return (__puterr("Wrong textures type"));
+	if (__strcmp(g->we + __strlen(g->we) - 4, ".xpm"))
+		return (__puterr("Wrong textures type"));
+	if (__strcmp(g->ea + __strlen(g->ea) - 4, ".xpm"))
+		return (__puterr("Wrong textures type"));
+	return (0);
+}
 
 int	__check_sprites(t_game *g)
 {
 	int	i;
 
+	if (__check_ext_sprites(g))
+		return (1);
 	i = open(g->no, O_RDONLY);
 	if (i == -1)
-		return (1);
+		return (__puterr("Can't open textures"));
 	close(i);
 	i = open(g->so, O_RDONLY);
 	if (i == -1)
-		return (1);
+		return (__puterr("Can't open textures"));
 	close(i);
 	i = open(g->we, O_RDONLY);
 	if (i == -1)
-		return (1);
+		return (__puterr("Can't open textures"));
 	close(i);
 	i = open(g->ea, O_RDONLY);
 	if (i == -1)
-		return (1);
+		return (__puterr("Can't open textures"));
 	close(i);
 	return (0);
 }

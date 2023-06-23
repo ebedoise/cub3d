@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file_checks.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: embedois <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/08 15:25:42 by embedois          #+#    #+#             */
+/*   Updated: 2023/02/08 16:30:26 by embedois         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 char	*init_file(char *str)
@@ -94,7 +106,10 @@ int	__file_checks(char *str, t_game *g)
 	start_map = __start_map(buf);
 	map_tmp = __strdup(buf + start_map);
 	if (__empty_line_map(map_tmp))
+	{
+		free(map_tmp);
 		return (__puterr("Empty line in map"));
+	}
 	g->map = __split(map_tmp, '\n');
 	free(map_tmp);
 	if (!g->map)
@@ -102,9 +117,7 @@ int	__file_checks(char *str, t_game *g)
 	buf = __strndup(buf, start_map);
 	if (__data_checks(buf, g))
 		return (1);
-	if (__check_sprites(g))
-		return (__puterr("Invalid textures"));
-	if (__map_checks(g))
-		return (__puterr("Wrong map format"));
+	if (__check_sprites(g) || __map_checks(g))
+		return (1);
 	return (0);
 }

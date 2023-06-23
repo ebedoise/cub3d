@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: embedois <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/08 15:26:43 by embedois          #+#    #+#             */
+/*   Updated: 2023/02/08 16:17:38 by embedois         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 void	__free_split(char **strs)
@@ -36,4 +48,14 @@ void	__free_struct(t_game *g)
 	mlx_destroy_image(g->vars.mlx, g->we_tex.img);
 	mlx_destroy_image(g->vars.mlx, g->ea_tex.img);
 	mlx_destroy_image(g->vars.mlx, g->img.img);
+}
+
+void	__free_struct1(t_game *g)
+{
+	if (g->map)
+		__free_split(g->map);
+	free(g->no);
+	free(g->so);
+	free(g->we);
+	free(g->ea);
 }

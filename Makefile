@@ -1,4 +1,3 @@
-
 # Names + files
 NAME		= cub3D
 FILES		= cubddd.c

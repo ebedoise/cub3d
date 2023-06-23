@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: embedois <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/08 15:24:42 by embedois          #+#    #+#             */
+/*   Updated: 2023/02/08 16:13:25 by embedois         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB_H
 # define CUB_H
 
@@ -132,6 +144,7 @@ int		__check_sprites(t_game *g);
 // utils
 void	__free_split(char **strs);
 void	__free_struct(t_game *g);
+void	__free_struct1(t_game *g);
 
 int		__strlen(char *str);
 int		__strcmp(char *s1, char *s2);
